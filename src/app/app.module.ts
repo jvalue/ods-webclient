@@ -2,28 +2,27 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { LayoutComponent } from './layout/layout.component';
 import { AppRoutingModule } from './/app-routing.module';
-import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {HeaderComponent} from './layout/header/header.component';
-import {MatSidenavModule, MatToolbarModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent,
-    SidebarComponent,
-    HeaderComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    MatSidenavModule,
+    HttpClientModule,
     MatToolbarModule,
-    HttpClientModule
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
