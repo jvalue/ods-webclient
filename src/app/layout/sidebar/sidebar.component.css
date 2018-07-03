@@ -1,0 +1,16 @@
+@import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
+
+mat-sidenav-container.m2app-dark {
+  background: black;
+}
+.app-sidenav {
+  min-width: 200px;
+}
+
+.app-sidenav-content {
+  min-height: 600px;
+}
+
+.app-button {
+  margin: 5px;
+}
