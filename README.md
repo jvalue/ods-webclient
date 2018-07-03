@@ -2,6 +2,10 @@
 
 The Open Data Service (ODS) Webclient provide a webbased ui for easy configuration of the ODS. The ODS itself is a Java server application which can collect data from multiple sources simulataneously, process that data and then offer an improved (or "cleaned") version to its clients.
 
+## Getting started
+Make sure to have Angular Cli globally installed 'npm install -g @angular/cli'.  
+'npm install' to resolve dependencies.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
