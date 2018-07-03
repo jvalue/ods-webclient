@@ -1,4 +1,4 @@
-export interface IDataSource {
+export class DataSource {
   domainIdKey: number;
   schema: Array<string>;
   name: string;
