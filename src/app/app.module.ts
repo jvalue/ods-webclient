@@ -5,13 +5,19 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
+import { OdsConfigComponent } from './ods-config/ods-config.component';
+import { SettingsComponent } from './settings/settings.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { OverviewComponent } from './overview/overview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    OdsConfigComponent,
+    SettingsComponent,
     DashboardComponent,
+    OverviewComponent,
   ],
   imports: [
     BrowserModule,
