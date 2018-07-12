@@ -1,3 +1,7 @@
+/*
+Copyright (c) 2018 Friedrich-Alexander University Erlangen-Nürnberg (FAU)
+SPDX-License-Identifier: AGPL-3.0-only
+*/
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 describe('AppComponent', () => {

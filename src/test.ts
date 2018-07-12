@@ -1,3 +1,7 @@
+/*
+Copyright (c) 2018 Friedrich-Alexander University Erlangen-Nürnberg (FAU)
+SPDX-License-Identifier: AGPL-3.0-only
+*/
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
 
 import 'zone.js/dist/zone-testing';

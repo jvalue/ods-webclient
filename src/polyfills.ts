@@ -1,3 +1,7 @@
+/*
+Copyright (c) 2018 Friedrich-Alexander University Erlangen-Nürnberg (FAU)
+SPDX-License-Identifier: AGPL-3.0-only
+*/
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
  * You can add your own extra polyfills to this file.

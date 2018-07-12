@@ -1,3 +1,7 @@
+/*
+Copyright (c) 2018 Friedrich-Alexander University Erlangen-Nürnberg (FAU)
+SPDX-License-Identifier: AGPL-3.0-only
+*/
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
