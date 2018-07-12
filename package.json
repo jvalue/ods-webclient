@@ -15,7 +15,17 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "license": "license-check-and-add"
+  },
+  "license-check-and-add-config": {
+    "folder": ".",
+    "license": "license-header.txt",
+    "exact_paths_method": "INCLUDE",
+    "exact_paths": ["src"],
+    "file_type_method": "INCLUDE",
+    "file_types": [".sh", ".ts"],
+    "insert_license": true
   },
   "private": true,
   "dependencies": {
@@ -51,6 +61,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.0",
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "license-check-and-add": "^2.3.6",
     "protractor": "~5.3.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1"
