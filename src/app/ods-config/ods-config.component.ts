@@ -13,9 +13,9 @@ import {DataSource} from '../shared/module/DataSource';
 })
 export class OdsConfigComponent implements OnInit {
   bodyObject: Object;
+  public JSON = JSON;
   public name: Object;
   public sourceId: String;
-
 
   constructor(public dataSource: DataSource) {}
 
