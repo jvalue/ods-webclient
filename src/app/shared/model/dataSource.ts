@@ -10,9 +10,7 @@ import {Injectable} from '@angular/core';
 export class DataSource {
 
   domainIdKey: String;
-
   schema: String[];
-
   metaData: {
     name: String,
     title: String,
@@ -22,6 +20,23 @@ export class DataSource {
     url: String,
     termsOfUse: String,
   };
+
+  constructor (
+    // domainIdKey: string,
+    // schema: string[],
+    // metaData: {
+    //   name: string,
+    //   title: string,
+    //   author: string,
+    //   authorEmail: string,
+    //   notes: string,
+    //   url: string,
+    //   termsOfUse: string,
+    ) {
+    // this.domainIdKey = domainIdKey;
+    // this.schema = schema;
+    // this.metaData = metaData;
+  }
 
 
 
