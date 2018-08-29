@@ -44,7 +44,7 @@ export class DataSourceService {
     return this.service.put(this.odsBaseUrl + '/' + sourceId, body);
   }
 
-  deleteDataSource(sourceId: String, body: any) {
-    return this.service.delete(this.odsBaseUrl + '/' + sourceId, body);
+  deleteDataSource(sourceId: String) {
+    return this.service.delete(this.odsBaseUrl + '/' + sourceId);
   }
 }
