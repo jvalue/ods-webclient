@@ -32,7 +32,8 @@ export class BasicRestService {
   }
 
   private handleError(error: any){
-    console.log("error: " + error);
+    console.log("error: ");
+    console.log(error);
     return error;
   }
 }
