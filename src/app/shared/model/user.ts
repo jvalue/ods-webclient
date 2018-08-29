@@ -26,7 +26,7 @@ export class User {
   }
 
   getBasicUserAuthentification(): string {
-    return "Basic " + btoa(this.userName + ":" + this.password);
+    return 'Basic ' + btoa(this.userName + ':' + this.password);
   }
 
 }

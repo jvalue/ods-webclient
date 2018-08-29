@@ -10,7 +10,7 @@ export class BasicRestService {
 
   constructor(private http: HttpClient) { }
 
-  get(url: string): Observable<any>{
+  get(url: string): Observable<any> {
     return this.http.get(url)
       .pipe(catchError(this.handleError));
   }
@@ -30,8 +30,8 @@ export class BasicRestService {
       .pipe(catchError(this.handleError));
   }
 
-  private handleError(error: any){
-    console.log("error: ");
+  private handleError(error: any) {
+    console.log('error: ');
     console.log(error);
     return error;
   }

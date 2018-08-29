@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SettingsService {
-  odsBaseUrl = "http://localhost:8080/ods/api/v1/datasources";
-  versionUrl =  "http://localhost:8080/ods/api/v1";
-  public odsBaseName = "admin@adminland.com"; // "admin"
-  public odsBasePassword = "admin123";
+  odsBaseUrl = 'http://localhost:8080/ods/api/v1/datasources';
+  versionUrl =  'http://localhost:8080/ods/api/v1';
+  public odsBaseName = 'admin@adminland.com'; // 'admin'
+  public odsBasePassword = 'admin123';
 
 constructor() {}
 
@@ -15,7 +15,7 @@ constructor() {}
     return this.odsBaseUrl;
   }
 
-  public setBaseUrl(url: string){
+  public setBaseUrl(url: string) {
     this.odsBaseUrl = url;
   }
 

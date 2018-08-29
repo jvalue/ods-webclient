@@ -11,7 +11,7 @@ import {DataSource} from '../model/dataSource';
 })
 export class DataSourceService {
 
-  odsBaseUrl = "http://localhost:8080/ods/api/v1/datasources";
+  odsBaseUrl = 'http://localhost:8080/ods/api/v1/datasources';
   private datasources: DataSource[] = [];
   private datasourceById: DataSource;
   private datasourceSchemaById: DataSource;
@@ -22,29 +22,29 @@ export class DataSourceService {
     this.service.get(this.odsBaseUrl).subscribe(
        (data: DataSource[]) => {
          for (let i = 0; i < data.length; i++) {
-           this.datasources[i] = data[i]
+           this.datasources[i] = data[i];
          }
        });
     return this.datasources ;
   }
 
   getDataSourceById(sourceId: String): DataSource {
-    this.service.get(this.odsBaseUrl+'/' + sourceId)
+    this.service.get(this.odsBaseUrl + '/' + sourceId)
       .subscribe((data: DataSource) => this.datasourceById = data);
     return this.datasourceById;
   }
 
   getDataSourceSchemaById(sourceId: String): DataSource {
-    this.service.get(this.odsBaseUrl +'/' + sourceId + '/schema')
+    this.service.get(this.odsBaseUrl + '/' + sourceId + '/schema')
       .subscribe((data: DataSource) => this.datasourceSchemaById = data);
     return this.datasourceSchemaById;
   }
 
   addDataSource(sourceId: String, body: any) {
-    return this.service.put(this.odsBaseUrl+'/' + sourceId, body);
+    return this.service.put(this.odsBaseUrl + '/' + sourceId, body);
   }
 
   deleteDataSource(sourceId: String, body: any) {
-    return this.service.delete(this.odsBaseUrl +'/' + sourceId, body);
+    return this.service.delete(this.odsBaseUrl + '/' + sourceId, body);
   }
 }
