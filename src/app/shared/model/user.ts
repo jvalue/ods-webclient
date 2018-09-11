@@ -9,24 +9,31 @@ import {Injectable} from '@angular/core';
 })
 export class User {
 
-  private userName: string;
-  private password: string;
+  email: string;
+  id: string;
+  name: string;
+  role: string;
 
-  constructor(userName: string, password: string) {
-    this.userName = userName;
-    this.password = password;
+  constructor() {
   }
 
-  getUserName() {
-    return this.userName;
-  }
-
-  setPassword(newPassword: string) {
-    this.password = newPassword;
-  }
-
-  getBasicUserAuthentification(): string {
-    return 'Basic ' + btoa(this.userName + ':' + this.password);
-  }
-
+  // public getUserId() {
+  //   return this.userId;
+  // }
+  //
+  // public getUserName() {
+  //   return this.userName;
+  // }
+  //
+  // public getUserRole() {
+  //   return this.userRole;
+  // }
+  //
+  // setPassword(newPassword: string) {
+  //   this.password = newPassword;
+  // }
+  //
+  // getBasicUserAuthentification(): string {
+  //   return 'Basic ' + btoa(this.userName + ':' + this.password);
+  // }
 }

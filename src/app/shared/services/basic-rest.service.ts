@@ -6,7 +6,8 @@ import {catchError} from 'rxjs/operators';
 const headerParams = {
   'Content-Type': 'application/json',
   'Accept': 'application/json',
-  'Access-Control-Allow-Headers': 'Content-Type'
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Authorization' : String('Basic ' + btoa('admin@adminland.com:admin123'))
 };
 
 const requestOptions = {

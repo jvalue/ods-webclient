@@ -1,16 +1,27 @@
 import { Injectable } from '@angular/core';
-// import {User} from '../model/user';
+import {BasicRestService} from './basic-rest.service';
+import {User} from '../model/user';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor() { }
+  odsBaseUrl = 'http://localhost:8080/ods/api/v1';
+  // private users: User[]
+  // private myself: User;
 
-  // getAllUsers(): User[] {
-  //   return null;
-  // }
+
+  constructor(private service: BasicRestService) { }
+
+  getAllUsers(): Observable<User[]> {
+    return this.service.get(this.odsBaseUrl + '/users');
+  }
+  getMyself() {
+    this.service.get(this.odsBaseUrl + '/me')
+      .subscribe((data: any) => console.log(data));
+  }
   //
   // addUser(userName: string, password: string) {}
   //
@@ -18,9 +29,6 @@ export class UserService {
   //   return null;
   // }
   //
-  // getUserMe(): User {
-  //   return null;
-  // }
   //
   // removeUser(userId: string) {}
 

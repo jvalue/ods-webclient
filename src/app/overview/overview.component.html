@@ -1,3 +1,6 @@
-<p>
-  overview works!
-</p>
+<div *ngFor="let user of users | async" >
+  <div>{{user.email}}</div>
+  <div>{{user.id}}</div>
+  <div>{{user.name}}</div>
+  <div>{{user.role}}</div>
+</div>
