@@ -23,7 +23,6 @@ export class OverviewComponent implements OnInit {
   public datasources: Observable<DataSource[]>;
   public version: Observable<Version>;
   public processorSpecifications: Observable<ProcessorSpecification[]>;
-  displayedColumns: string[] = ['email', 'name', 'role', 'id'];
 
   constructor(private userService: UserService,
               private dataSourceService: DataSourceService,
