@@ -15,7 +15,7 @@ export class ProcessorChainService {
   getAllProcessorChains(sourceId: string): Observable<ProcessorChain[]> {
     return this.service.get(this.odsBaseUrl + '/' + sourceId + '/filterChains');
   }
-  getProcessorChain(sourceId: string, filterChainId: string): Observable<ProcessorChain>{
+  getProcessorChain(sourceId: string, filterChainId: string): Observable<ProcessorChain> {
     return this.service.get(this.odsBaseUrl + '/' + sourceId + '/' + filterChainId);
   }
   addProcessorChain(sourceId: string, filterChainId: string) {
