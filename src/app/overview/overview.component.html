@@ -17,9 +17,28 @@
     </table>
   </mat-tab>
 
-  <mat-tab label="Second">
-    <button mat-button (click)="getMyself()">click</button>
-    <div>{{(myself | async)?.name}}</div>
+  <mat-tab label="DataSources">
+
+    <table>
+      <tr>
+        <th>DomainIdKey</th>
+        <th>Title</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>AuthorEmail</th>
+        <th>Url</th>
+      </tr>
+
+      <tr *ngFor="let datasource of datasources | async">
+        <td>{{datasource.domainIdKey}}</td>
+        <td>{{datasource.metaData.title}}</td>
+        <td>{{datasource.metaData.name}}</td>
+        <td>{{datasource.metaData.author}}</td>
+        <td>{{datasource.metaData.authorEmail}}</td>
+        <td>{{datasource.metaData.url}}</td>
+      </tr>
+    </table>
+
   </mat-tab>
   <mat-tab label="Third"> Content 3 </mat-tab>
 
