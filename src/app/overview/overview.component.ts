@@ -10,6 +10,8 @@ import {DataSourceService} from '../shared/services/data-source.service';
 import {DataSource} from '../shared/model/dataSource';
 import {SettingsService} from '../shared/services/settings.service';
 import {Version} from '../shared/model/version';
+import {ProcessorChainService} from '../shared/services/processor-chain.service';
+import {ProcessorSpecification} from '../shared/model/processorSpecification';
 
 @Component({
   selector: 'app-overview',
@@ -19,21 +21,20 @@ import {Version} from '../shared/model/version';
 export class OverviewComponent implements OnInit {
   public users: Observable<User[]>;
   public datasources: Observable<DataSource[]>;
-  public myself: Observable<User>;
   public version: Observable<Version>;
+  public processorSpecifications: Observable<ProcessorSpecification[]>;
   displayedColumns: string[] = ['email', 'name', 'role', 'id'];
 
   constructor(private userService: UserService,
-              private  dataSourceService: DataSourceService,
-              private  settingsService: SettingsService) {}
+              private dataSourceService: DataSourceService,
+              private settingsService: SettingsService,
+              private processorService: ProcessorChainService) {}
 
   ngOnInit() {
     this.users = this.userService.getAllUsers();
     this.datasources = this.dataSourceService.getDataSource();
     this.version = this.settingsService.getVersion();
-  }
-  getMyself() {
-    this.myself = this.userService.getMyself();
+    this.processorSpecifications = this.processorService.getAllProcessorSpecifications();
   }
 
 }
