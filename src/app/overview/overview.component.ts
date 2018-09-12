@@ -13,11 +13,14 @@ import {Observable} from 'rxjs';
 })
 export class OverviewComponent implements OnInit {
   public users: Observable<User[]>;
-  public myself: Observable<any>;
+  public myself: Observable<User>;
 
   constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.users = this.userService.getAllUsers();
+  }
+  getMyself() {
+    this.myself = this.userService.getMyself();
   }
 }

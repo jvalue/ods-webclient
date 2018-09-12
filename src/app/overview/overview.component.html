@@ -4,3 +4,8 @@
   <div>{{user.name}}</div>
   <div>{{user.role}}</div>
 </div>
+
+<button mat-button (click)="getMyself()">click</button>
+
+<div>{{(myself | async)?.name}}</div>
+

@@ -9,18 +9,14 @@ import {Observable} from 'rxjs';
 export class UserService {
 
   odsBaseUrl = 'http://localhost:8080/ods/api/v1';
-  // private users: User[]
-  // private myself: User;
-
 
   constructor(private service: BasicRestService) { }
 
   getAllUsers(): Observable<User[]> {
     return this.service.get(this.odsBaseUrl + '/users');
   }
-  getMyself() {
-    this.service.get(this.odsBaseUrl + '/me')
-      .subscribe((data: any) => console.log(data));
+  getMyself(): Observable<User> {
+    return this.service.get(this.odsBaseUrl + '/users/me');
   }
   //
   // addUser(userName: string, password: string) {}
