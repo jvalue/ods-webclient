@@ -8,6 +8,8 @@ import {UserService} from '../shared/services/user.service';
 import {Observable} from 'rxjs';
 import {DataSourceService} from '../shared/services/data-source.service';
 import {DataSource} from '../shared/model/dataSource';
+import {SettingsService} from '../shared/services/settings.service';
+import {Version} from '../shared/model/version';
 
 @Component({
   selector: 'app-overview',
@@ -18,16 +20,20 @@ export class OverviewComponent implements OnInit {
   public users: Observable<User[]>;
   public datasources: Observable<DataSource[]>;
   public myself: Observable<User>;
+  public version: Observable<Version>;
   displayedColumns: string[] = ['email', 'name', 'role', 'id'];
 
   constructor(private userService: UserService,
-              private  dataSourceService: DataSourceService) {}
+              private  dataSourceService: DataSourceService,
+              private  settingsService: SettingsService) {}
 
   ngOnInit() {
     this.users = this.userService.getAllUsers();
     this.datasources = this.dataSourceService.getDataSource();
+    this.version = this.settingsService.getVersion();
   }
   getMyself() {
     this.myself = this.userService.getMyself();
   }
+
 }
