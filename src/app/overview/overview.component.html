@@ -1,11 +1,26 @@
-<div *ngFor="let user of users | async" >
-  <div>{{user.email}}</div>
-  <div>{{user.id}}</div>
-  <div>{{user.name}}</div>
-  <div>{{user.role}}</div>
-</div>
+<mat-tab-group>
+  <mat-tab label="Users">
 
-<button mat-button (click)="getMyself()">click</button>
+    <table>
+      <tr>
+        <th>Email</th>
+        <th>Name</th>
+        <th>Id</th>
+        <th>Role</th>
+      </tr>
+      <tr  *ngFor="let user of users | async">
+        <td>{{user.email}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.id}}</td>
+        <td>{{user.role}}</td>
+      </tr>
+    </table>
+  </mat-tab>
 
-<div>{{(myself | async)?.name}}</div>
+  <mat-tab label="Second">
+    <button mat-button (click)="getMyself()">click</button>
+    <div>{{(myself | async)?.name}}</div>
+  </mat-tab>
+  <mat-tab label="Third"> Content 3 </mat-tab>
 
+</mat-tab-group>
