@@ -1,39 +1,6 @@
-<script src="ods-config.component.ts"></script><p>
-  ods-config works!
+<p>
+  OdsConfig
 </p>
-<div>
-  <button mat-raised-button (click)="getDataSource()">getDatasource</button>
-</div>
-
-<div>
-  <input #box (keydown.enter)="setSourceId(box.value)">
-  <p>This is sourceId: {{getSourceId()}}</p>
-</div>
-<div>
-  <button mat-button (click)="getDataSourceById(sourceId)">getDatasourceById</button>
-</div>
-<div>
-  <button mat-button (click)="addDataSourceFromClass(sourceId)">addDatasource</button>
-</div>
-<div>
-  <button mat-button (click)="deleteDataSource(sourceId)">deleteDataSource</button>
-</div>
-<div>
-  <button mat-button (click)="getText()">Text</button>
-</div>
-<div>
-  <span>{{name}}</span>
-</div>
-<div>
-  <mat-card *ngFor="let data of bodyObject">
-    <mat-card-header>
-      <span>Data Set: {{data.id}}</span>
-    </mat-card-header>
-    <mat-card-content>
-      {{JSON.stringify(data)}}
-    </mat-card-content>
-  </mat-card>
-</div>
 
 
 
