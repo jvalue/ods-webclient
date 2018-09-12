@@ -21,13 +21,6 @@ export class DataSourceService {
 
   getDataSource(): Observable<DataSource[]> {
     return this.service.get(this.odsBaseUrl);
-    //   .subscribe(
-    //    (data: DataSource[]) => {
-    //      for (let i = 0; i < data.length; i++) {
-    //        this.datasources[i] = data[i];
-    //      }
-    //    });
-    // return this.datasources ;
   }
 
   getDataSourceById(sourceId: String): DataSource {
