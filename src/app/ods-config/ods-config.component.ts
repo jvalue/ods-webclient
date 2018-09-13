@@ -6,6 +6,7 @@ import {Component, OnInit} from '@angular/core';
 import {DataSourceService} from '../shared/services/data-source.service';
 import {DataSource} from '../shared/model/dataSource';
 import {Observable} from 'rxjs';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-ods-config',
@@ -15,11 +16,23 @@ import {Observable} from 'rxjs';
 export class OdsConfigComponent implements OnInit {
 
   public datasources: Observable<DataSource[]>;
+  isLinear = false;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
 
-  constructor(private  service: DataSourceService) {
+  constructor(private  service: DataSourceService,
+              private _formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
     this.datasources = this.service.getDataSource();
+
   }
+
 }
