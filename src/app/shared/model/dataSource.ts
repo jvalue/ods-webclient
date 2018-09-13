@@ -9,6 +9,7 @@ import {Injectable} from '@angular/core';
 })
 export class DataSource {
 
+  id: string;
   domainIdKey: String;
   schema: String[];
   metaData: {

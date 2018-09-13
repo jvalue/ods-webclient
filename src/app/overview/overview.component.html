@@ -21,6 +21,7 @@
 
     <table>
       <tr>
+        <th>Id</th>
         <th>DomainIdKey</th>
         <th>Title</th>
         <th>Name</th>
@@ -30,6 +31,7 @@
       </tr>
 
       <tr *ngFor="let datasource of datasources | async">
+        <td>{{datasource.id}}</td>
         <td>{{datasource.domainIdKey}}</td>
         <td>{{datasource.metaData.title}}</td>
         <td>{{datasource.metaData.name}}</td>
@@ -47,6 +49,14 @@
       </tr>
     </table>
   </mat-tab>
+
+  <!--<mat-tab label="Views">-->
+    <!--<table>-->
+      <!--<tr *ngFor="let view of views | async">-->
+        <!--<td>{{view.id}}</td>-->
+      <!--</tr>-->
+    <!--</table>-->
+  <!--</mat-tab>-->
 
 </mat-tab-group>
 

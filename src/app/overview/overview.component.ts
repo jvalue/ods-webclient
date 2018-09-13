@@ -12,6 +12,9 @@ import {SettingsService} from '../shared/services/settings.service';
 import {Version} from '../shared/model/version';
 import {ProcessorChainService} from '../shared/services/processor-chain.service';
 import {ProcessorSpecification} from '../shared/model/processorSpecification';
+import {DataViewService} from '../shared/services/data-view.service';
+import {DataView} from '../shared/model/dataView';
+
 
 @Component({
   selector: 'app-overview',
@@ -23,17 +26,20 @@ export class OverviewComponent implements OnInit {
   public datasources: Observable<DataSource[]>;
   public version: Observable<Version>;
   public processorSpecifications: Observable<ProcessorSpecification[]>;
+  public views: Observable<DataView[]>;
 
   constructor(private userService: UserService,
               private dataSourceService: DataSourceService,
               private settingsService: SettingsService,
-              private processorService: ProcessorChainService) {}
+              private processorService: ProcessorChainService,
+              private dataViewService: DataViewService) {}
 
   ngOnInit() {
     this.users = this.userService.getAllUsers();
     this.datasources = this.dataSourceService.getDataSource();
     this.version = this.settingsService.getVersion();
     this.processorSpecifications = this.processorService.getAllProcessorSpecifications();
+    this.views = this.dataViewService.getAllViews('pegelonline');
   }
 
 }
