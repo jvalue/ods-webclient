@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {BasicRestService} from './basic-rest.service';
 import {Observable} from 'rxjs';
 import {ProcessorChain} from '../model/processorChain';
-import {ProcessorSpecification} from '../model/processorSpecification';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +22,5 @@ export class ProcessorChainService {
   }
   deleteProcessorChain(sourceId: string, filterChainId: string) {
     return this.service.get(this.odsBaseUrl + '/' + sourceId + '/' + filterChainId);
-  }
-  getAllProcessorSpecifications(): Observable<ProcessorSpecification[]> {
-    return this.service.get(this.odsBaseUrl + '/filterTypes');
   }
 }
