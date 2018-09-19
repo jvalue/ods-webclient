@@ -1,0 +1,68 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <ng-template matStepLabel>Fill out your name</ng-template>
+
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Id" formControlName="id" required>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="domainIdKey" formControlName="domainIdKey">
+    </mat-form-field>
+  </div>
+
+  <div formGroupName="metaData">
+
+    <div>
+      <mat-form-field>
+        <input matInput placeholder="name" formControlName="name">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput placeholder="title" formControlName="title">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput placeholder="author" formControlName="author">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput placeholder="authorEmail" formControlName="authorEmail">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput placeholder="notes" formControlName="notes">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput placeholder="url" formControlName="url">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input matInput placeholder="termsOfUse" formControlName="termsOfUse">
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div>
+    <button mat-button matStepperNext>Next</button>
+  </div>
+
+  <button type="submit" [disabled]="!formGroup.valid">Submit</button>
+
+</form>
+

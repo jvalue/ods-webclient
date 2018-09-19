@@ -17,7 +17,6 @@ export class OdsConfigComponent implements OnInit {
 
   public datasources: Observable<DataSource[]>;
   isLinear = false;
-  firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
   constructor(private  service: DataSourceService,
@@ -25,14 +24,9 @@ export class OdsConfigComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
     this.datasources = this.service.getDataSource();
-
   }
-
 }

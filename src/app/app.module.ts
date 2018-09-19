@@ -15,7 +15,8 @@ import { OdsConfigComponent } from './ods-config/ods-config.component';
 import { SettingsComponent } from './settings/settings.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { OverviewComponent } from './overview/overview.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { DataSourceFormComponent } from './ods-config/components/data-source-form/data-source-form.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SettingsComponent,
     DashboardComponent,
     OverviewComponent,
+    DataSourceFormComponent,
   ],
   imports: [
     BrowserModule,
