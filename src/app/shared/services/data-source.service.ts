@@ -12,61 +12,31 @@ import {Observable} from 'rxjs';
 })
 export class DataSourceService {
 
-  odsBaseUrl = 'http://localhost:8080/ods/api/v1/datasources';
-  odsV2Url = 'http://localhost:8080/ods/api/v2/datasources';
-  // private datasources: DataSource[] = [];
-  private datasourceById: DataSource;
-  private datasourceSchemaById: DataSource;
+  dataSourceUrl = '/datasources';
 
-  constructor(private service: BasicRestService) { }
+  constructor(private service: BasicRestService) {}
 
   getDataSource(): Observable<DataSource[]> {
-    return this.service.get(this.odsBaseUrl);
+    return this.service.get(this.service.odsBaseApiUrlV1 + this.dataSourceUrl);
   }
 
   getDataSourceV2(): Observable<DataSource[]> {
-    return this.service.get(this.odsV2Url);
+    return this.service.get(this.service.odsBaseApiUrlV2 + this.dataSourceUrl);
   }
 
-  getDataSourceById(sourceId: String): DataSource {
-    this.service.get(this.odsBaseUrl + '/' + sourceId)
-      .subscribe((data: DataSource) => this.datasourceById = data);
-    return this.datasourceById;
+  getDataSourceById(sourceId: String): Observable<DataSource> {
+    return this.service.get(this.service.odsBaseApiUrlV1 + '/' + sourceId);
   }
 
-  getDataSourceSchemaById(sourceId: String): DataSource {
-    this.service.get(this.odsBaseUrl + '/' + sourceId + '/schema')
-      .subscribe((data: DataSource) => this.datasourceSchemaById = data);
-    return this.datasourceSchemaById;
+  getDataSourceSchemaById(sourceId: String): Observable<DataSource> {
+    return this.service.get(this.service.odsBaseApiUrlV1 + '/' + sourceId + '/schema');
   }
 
   addDataSource(sourceId: String, body: any) {
-    return this.service.put(this.odsBaseUrl + '/' + sourceId, body);
+    return this.service.put(this.service.odsBaseApiUrlV1 + this.dataSourceUrl + '/' + sourceId, body);
   }
 
   deleteDataSource(sourceId: String) {
-    return this.service.delete(this.odsBaseUrl + '/' + sourceId);
-  }
-
-  getDataSourceFromInput(
-    id: string,
-    domainIdKey: string,
-    schema: string[],
-    metaData: {
-    name: string,
-    title: String,
-    author: String,
-    authorEmail: String,
-    notes: String,
-    url: String,
-    termsOfUse: String }
-  ): DataSource {
-    const source = new DataSource();
-    source.id = id;
-    source.domainIdKey = domainIdKey;
-    source.metaData = metaData;
-    source.schema = schema;
-    source.metaData = metaData;
-    return source;
+    return this.service.delete(this.service.odsBaseApiUrlV1 + this.dataSourceUrl + '/' + sourceId);
   }
 }

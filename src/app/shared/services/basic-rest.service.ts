@@ -19,6 +19,9 @@ const requestOptions = {
 })
 export class BasicRestService {
 
+  odsBaseApiUrlV1 = 'http://localhost:8080/ods/api/v1';
+  odsBaseApiUrlV2 = 'http://localhost:8080/ods/api/v2';
+
   constructor(private http: HttpClient) { }
 
   get(url: string): Observable<any> {
