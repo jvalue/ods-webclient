@@ -17,6 +17,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { OverviewComponent } from './overview/overview.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DataSourceFormComponent } from './ods-config/components/data-source-form/data-source-form.component';
+import { StepperComponent } from './ods-config/components/stepper/stepper.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { DataSourceFormComponent } from './ods-config/components/data-source-for
     DashboardComponent,
     OverviewComponent,
     DataSourceFormComponent,
+    StepperComponent,
   ],
   imports: [
     BrowserModule,

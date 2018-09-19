@@ -1,0 +1,19 @@
+<mat-horizontal-stepper [linear]="true" #stepper>
+  <mat-step>
+    <app-data-source-form></app-data-source-form>
+  </mat-step>
+  <mat-step>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
