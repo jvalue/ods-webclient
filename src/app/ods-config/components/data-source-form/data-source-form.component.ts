@@ -53,11 +53,7 @@ export class DataSourceFormComponent implements OnInit {
     if (this.formGroup.valid) {
       this.dataSource = this.formGroup.getRawValue();
     }
-    // TODO write function to stringify else schema-property with id as name is filtered out
-    const dat = JSON.stringify(this.dataSource,
-      ['domainIdKey', 'schema', 'metaData', 'name',
-      'title', 'author', 'authorEmail', 'url', 'notes', 'termsOfUse']);
-    this.service.addDataSource(this.dataSource.id, dat).subscribe(
+    this.service.addDataSource(this.dataSource).subscribe(
       data => console.log(data)
     );
   }

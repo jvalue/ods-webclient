@@ -20,9 +20,11 @@ export class DataSourceService {
     return this.service.get(this.service.odsBaseApiUrlV1 + this.dataSourceUrl);
   }
 
-  getDataSourceV2(): Observable<DataSource[]> {
-    return this.service.get(this.service.odsBaseApiUrlV2 + this.dataSourceUrl);
-  }
+  // getDataSourceV2(): Observable<DataSource[]> {
+  //   console.log(this.service.get(this.service.odsBaseApiUrlV2 + this.dataSourceUrl)
+  //     .subscribe((data: Response) => console.log(data.json())));
+  //   return null;
+  // }
 
   getDataSourceById(sourceId: String): Observable<DataSource> {
     return this.service.get(this.service.odsBaseApiUrlV1 + '/' + sourceId);
@@ -32,8 +34,13 @@ export class DataSourceService {
     return this.service.get(this.service.odsBaseApiUrlV1 + '/' + sourceId + '/schema');
   }
 
-  addDataSource(sourceId: String, body: any) {
-    return this.service.put(this.service.odsBaseApiUrlV1 + this.dataSourceUrl + '/' + sourceId, body);
+  addDataSource(body: DataSource) {
+    const sourceId = body.id;
+    // TODO write function to stringify else schema-property with id as name is filtered out
+    const data = JSON.stringify(body,
+      ['domainIdKey', 'schema', 'metaData', 'name',
+        'title', 'author', 'authorEmail', 'url', 'notes', 'termsOfUse']);
+    return this.service.put(this.service.odsBaseApiUrlV1 + this.dataSourceUrl + '/' + sourceId, data);
   }
 
   deleteDataSource(sourceId: String) {
