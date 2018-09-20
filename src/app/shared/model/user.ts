@@ -16,24 +16,4 @@ export class User {
 
   constructor() {
   }
-
-  // public getUserId() {
-  //   return this.userId;
-  // }
-  //
-  // public getUserName() {
-  //   return this.userName;
-  // }
-  //
-  // public getUserRole() {
-  //   return this.userRole;
-  // }
-  //
-  // setPassword(newPassword: string) {
-  //   this.password = newPassword;
-  // }
-  //
-  // getBasicUserAuthentification(): string {
-  //   return 'Basic ' + btoa(this.userName + ':' + this.password);
-  // }
 }

@@ -23,21 +23,7 @@ export class DataSource {
   };
 
   constructor (
-    // domainIdKey: string,
-    // schema: string[],
-    // metaData: {
-    //   name: string,
-    //   title: string,
-    //   author: string,
-    //   authorEmail: string,
-    //   notes: string,
-    //   url: string,
-    //   termsOfUse: string,
-    ) {
-    // this.domainIdKey = domainIdKey;
-    // this.schema = schema;
-    // this.metaData = metaData;
-  }
+    ) {}
 
 
 
