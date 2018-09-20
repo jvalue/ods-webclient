@@ -1,3 +1,7 @@
+/*
+Copyright (c) 2018 Friedrich-Alexander University Erlangen-Nürnberg (FAU)
+SPDX-License-Identifier: AGPL-3.0-only
+*/
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DataSource} from '../../../shared/model/dataSource';
