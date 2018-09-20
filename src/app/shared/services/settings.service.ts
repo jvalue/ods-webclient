@@ -1,7 +1,4 @@
 import { Injectable } from '@angular/core';
-import {BasicRestService} from './basic-rest.service';
-import {Observable} from 'rxjs';
-import {Version} from '../model/version';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +9,7 @@ export class SettingsService {
   public odsBaseName = 'admin@adminland.com'; // 'admin'
   public odsBasePassword = 'admin123';
 
-constructor(private service: BasicRestService) {}
+constructor() {}
 
   public getBaseUrl(): String {
     return this.odsBaseUrl;
@@ -30,7 +27,4 @@ constructor(private service: BasicRestService) {}
     return this.odsBasePassword;
   }
 
-  public getVersion(): Observable<Version> {
-    return this.service.get(this.versionUrl + '/version');
-  }
 }
