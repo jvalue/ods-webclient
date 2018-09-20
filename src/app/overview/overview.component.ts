@@ -8,7 +8,6 @@ import {UserService} from '../shared/services/user.service';
 import {Observable} from 'rxjs';
 import {DataSourceService} from '../shared/services/data-source.service';
 import {DataSource} from '../shared/model/dataSource';
-import {SettingsService} from '../shared/services/settings.service';
 import {Version} from '../shared/model/version';
 import {ProcessorSpecification} from '../shared/model/processorSpecification';
 import {DataViewService} from '../shared/services/data-view.service';
