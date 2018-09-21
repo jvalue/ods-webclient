@@ -18,7 +18,8 @@ import { OverviewComponent } from './overview/overview.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DataSourceFormComponent } from './ods-config/components/data-source-form/data-source-form.component';
 import { StepperComponent } from './ods-config/components/stepper/stepper.component';
-import { NgxJsonapiModule } from 'ngx-jsonapi';
+// import {StoreModule} from '@ngrx/store';
+// import {NgrxJsonApiModule} from 'ngrx-json-api';
 
 @NgModule({
   declarations: [
@@ -47,9 +48,11 @@ import { NgxJsonapiModule } from 'ngx-jsonapi';
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    NgxJsonapiModule.forRoot({
-      url: 'http://localhost:8080/ods/api/v2'
-    })
+    // StoreModule.forRoot(reducers, {}), // reducers, initial state
+    // NgrxJsonApiModule.configure({
+    //   apiUrl: 'http://localhost.com',
+    //
+    // }),
   ],
   providers: [],
   bootstrap: [AppComponent]
