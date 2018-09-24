@@ -18,6 +18,7 @@ import { OverviewComponent } from './overview/overview.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DataSourceFormComponent } from './ods-config/components/data-source.form/data-source.form.component';
 import { StepperComponent } from './ods-config/components/stepper/stepper.component';
+import { DataSourceDetailComponent } from './ods-config/components/data-source-detail/data-source-detail.component';
 // import {StoreModule} from '@ngrx/store';
 // import {NgrxJsonApiModule} from 'ngrx-json-api';
 
@@ -30,6 +31,7 @@ import { StepperComponent } from './ods-config/components/stepper/stepper.compon
     OverviewComponent,
     DataSourceFormComponent,
     StepperComponent,
+    DataSourceDetailComponent
   ],
   imports: [
     BrowserModule,
