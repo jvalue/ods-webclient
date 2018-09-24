@@ -1,2 +1,19 @@
+<table>
+  <tr>
+    <th>Id</th>
+    <th>DomainIdKey</th>
+    <th>Title</th>
+    <th>Name</th>
+  </tr>
 
-<app-stepper></app-stepper>
+  <tr *ngFor="let datasource of datasources | async">
+    <td>{{datasource.domainIdKey}}</td>
+    <td>{{datasource.metaData.title}}</td>
+    <td>{{datasource.metaData.name}}</td>
+    <td>
+      <button [routerLink]="['/odsConfig', datasource.id, 'details']">
+        Details
+      </button>
+    </td>
+  </tr>
+</table>

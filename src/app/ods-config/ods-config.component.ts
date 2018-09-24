@@ -4,6 +4,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 import {Component, OnInit} from '@angular/core';
 import {DataSourceService} from '../shared/services/data-source.service';
+import {Observable} from 'rxjs';
+import {DataSource} from '../shared/model/data-source';
 
 @Component({
   selector: 'app-ods-config',
@@ -12,9 +14,12 @@ import {DataSourceService} from '../shared/services/data-source.service';
 })
 export class OdsConfigComponent implements OnInit {
 
-  constructor() {
+  public datasources: Observable<DataSource[]>;
+
+  constructor(private dataSourceService: DataSourceService) {
   }
 
   ngOnInit() {
+    this.datasources = this.dataSourceService.getDataSource();
   }
 }

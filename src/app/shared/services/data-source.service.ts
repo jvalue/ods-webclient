@@ -27,11 +27,11 @@ export class DataSourceService {
   // }
 
   getDataSourceById(sourceId: String): Observable<DataSource> {
-    return this.service.get(this.service.odsBaseApiUrlV1 + '/' + sourceId);
+    return this.service.get(this.service.odsBaseApiUrlV1  + this.dataSourceUrl + '/' + sourceId);
   }
 
   getDataSourceSchemaById(sourceId: String): Observable<DataSource> {
-    return this.service.get(this.service.odsBaseApiUrlV1 + '/' + sourceId + '/schema');
+    return this.service.get(this.service.odsBaseApiUrlV1  + this.dataSourceUrl + '/' + sourceId + '/schema');
   }
 
   addDataSource(body: DataSource) {
