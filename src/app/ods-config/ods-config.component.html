@@ -1,19 +1,26 @@
-<table>
-  <tr>
-    <th>Id</th>
-    <th>DomainIdKey</th>
-    <th>Title</th>
-    <th>Name</th>
-  </tr>
+<div>
+  <button [routerLink]="['newDataSource']">
+    + DataSource
+  </button>
+</div>
+<div>
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>DomainIdKey</th>
+      <th>Title</th>
+      <th>Name</th>
+    </tr>
 
-  <tr *ngFor="let datasource of datasources | async">
-    <td>{{datasource.domainIdKey}}</td>
-    <td>{{datasource.metaData.title}}</td>
-    <td>{{datasource.metaData.name}}</td>
-    <td>
-      <button [routerLink]="['/odsConfig', datasource.id, 'details']">
-        Details
-      </button>
-    </td>
-  </tr>
-</table>
+    <tr *ngFor="let datasource of datasources | async">
+      <td>{{datasource.domainIdKey}}</td>
+      <td>{{datasource.metaData.title}}</td>
+      <td>{{datasource.metaData.name}}</td>
+      <td>
+        <button [routerLink]="['/odsConfig', datasource.id, 'details']">
+          Details
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>
