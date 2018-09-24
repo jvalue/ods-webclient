@@ -4,7 +4,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {ProcessorSpecification} from '../model/processorSpecification';
+import {ProcessorSpecification} from '../model/processor-specification';
 import {BasicRestService} from './basic-rest.service';
 
 @Injectable({

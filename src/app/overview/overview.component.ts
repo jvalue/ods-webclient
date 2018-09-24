@@ -7,11 +7,11 @@ import {User} from '../shared/model/user';
 import {UserService} from '../shared/services/user.service';
 import {Observable} from 'rxjs';
 import {DataSourceService} from '../shared/services/data-source.service';
-import {DataSource} from '../shared/model/dataSource';
+import {DataSource} from '../shared/model/data-source';
 import {Version} from '../shared/model/version';
-import {ProcessorSpecification} from '../shared/model/processorSpecification';
+import {ProcessorSpecification} from '../shared/model/processor-specification';
 import {DataViewService} from '../shared/services/data-view.service';
-import {DataView} from '../shared/model/dataView';
+import {DataView} from '../shared/model/data-view';
 import {ProcessorSpecificationService} from '../shared/services/processor-specification.service';
 import {VersionService} from '../shared/services/version.service';
 

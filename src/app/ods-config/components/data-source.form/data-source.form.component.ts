@@ -4,14 +4,14 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {DataSource} from '../../../shared/model/dataSource';
+import {DataSource} from '../../../shared/model/data-source';
 import {DataSourceService} from '../../../shared/services/data-source.service';
 import {Observable} from 'rxjs';
 import {HttpResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-data-source-form',
-  templateUrl: './data-source-form.component.html',
+  templateUrl: './data-source.form.component.html',
 })
 export class DataSourceFormComponent implements OnInit {
 

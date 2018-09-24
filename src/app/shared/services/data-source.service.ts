@@ -4,7 +4,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 import { Injectable } from '@angular/core';
 import {BasicRestService} from './basic-rest.service';
-import {DataSource} from '../model/dataSource';
+import {DataSource} from '../model/data-source';
 import {Observable} from 'rxjs';
 
 @Injectable({
