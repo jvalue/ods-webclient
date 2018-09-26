@@ -3,31 +3,89 @@
     DataSource Details
   </p>
 </div>
+<div>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Metadata
+        </mat-panel-title>
+      </mat-expansion-panel-header>
 
-<div>
-  <p>
-    DataSource Id: {{(dataSource | async)?.id}}
-  </p>
+      <p>
+        Id: {{(dataSource | async)?.id}}
+      </p>
+      <p>
+        DomainKeyId: {{(dataSource | async)?.domainIdKey}}
+      </p>
+      <p>
+        Title: {{(dataSource | async)?.metaData.title}}
+      </p>
+      <p>
+        Name: {{(dataSource | async)?.metaData.name}}
+      </p>
+      <p>
+        Author: {{(dataSource | async)?.metaData.author}}
+      </p>
+      <p>
+        Author Email: {{(dataSource | async)?.metaData.authorEmail}}
+      </p>
+      <p>
+        Url: {{(dataSource | async)?.metaData.url}}
+      </p>
+    </mat-expansion-panel>
+
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Schema
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <pre>
+        {{(((dataSource | async)?.schema) | json)}}
+      </pre>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          ProcessorChains
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+    </mat-expansion-panel>
+
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Notifications
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+    </mat-expansion-panel>
+
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Plugins
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+    </mat-expansion-panel>
+
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          DataViews
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+    </mat-expansion-panel>
+
+
+  </mat-accordion>
 </div>
 
-<div>
-  <p>
-    Schema:
-  </p>
-</div>
-
-<div>
-  Filter
-</div>
-<div>
-  ProcessorChains
-</div>
-<div>
-  Notifications
-</div>
-<div>
-  Plugins
-</div>
-<div>
-  DataViews
-</div>
