@@ -5,9 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DataSource} from '../../../shared/model/data-source';
-// import {DataSourceService} from '../../../shared/services/data-source.service';
-import {Observable} from 'rxjs';
-import {HttpResponse} from '@angular/common/http';
+import {DataSourceService} from '../../../shared/services/data-source.service';
 
 @Component({
   selector: 'app-data-source-form',
@@ -15,14 +13,12 @@ import {HttpResponse} from '@angular/common/http';
 })
 export class DataSourceFormComponent implements OnInit {
 
-  formGroup: FormGroup;
   dataSource: DataSource;
-  observable: Observable<HttpResponse<any>>;
   metaDataForm: FormGroup;
   schemaForm: FormGroup;
 
   constructor(private _formBuilder: FormBuilder,
-              // private service: DataSourceService
+              private service: DataSourceService
   ) {
   }
 
@@ -66,9 +62,9 @@ export class DataSourceFormComponent implements OnInit {
       this.dataSource.schema = this.schemaForm.getRawValue();
     }
     console.log(this.dataSource);
-    // this.service.addDataSource(this.dataSource).subscribe(
-    //   data => console.log(data)
-    // );
+    this.service.addDataSource(this.dataSource).subscribe(
+      data => console.log(data)
+    );
   }
 }
 
