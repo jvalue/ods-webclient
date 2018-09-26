@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DataSource} from '../../../shared/model/data-source';
-import {DataSourceService} from '../../../shared/services/data-source.service';
+// import {DataSourceService} from '../../../shared/services/data-source.service';
 import {Observable} from 'rxjs';
 import {HttpResponse} from '@angular/common/http';
 
@@ -18,44 +18,57 @@ export class DataSourceFormComponent implements OnInit {
   formGroup: FormGroup;
   dataSource: DataSource;
   observable: Observable<HttpResponse<any>>;
+  metaDataForm: FormGroup;
+  schemaForm: FormGroup;
 
   constructor(private _formBuilder: FormBuilder,
-              private service: DataSourceService) {
+              // private service: DataSourceService
+  ) {
   }
 
   ngOnInit() {
-    this.formGroup = this._formBuilder.group({
-        id: ['', Validators.required],
-        domainIdKey: [''],
-        schema: this.createSchema(),
-        metaData: this.initMetaData()
-      }
-    );
+    this.metaDataForm = this.createMetaDataForm();
+    this.schemaForm = this.createSchemaForm();
   }
 
-  initMetaData()  {
+  createMetaDataForm()  {
     return this._formBuilder.group({
-      name: [''],
-      title: [''],
-      author: [''],
-      authorEmail: [''],
-      notes: [''],
-      url: [''],
-      termsOfUse: ['']
+      id: ['', Validators.required],
+      domainIdKey: [''],
+      metaData: this._formBuilder.group({
+        name: [''],
+        title: [''],
+        author: [''],
+        authorEmail: [''],
+        notes: [''],
+        url: [''],
+        termsOfUse: ['']
+      })
     });
   }
 
-  createSchema() {
-    return this._formBuilder.group({});
+  submitMetaData() {
+    if (this.metaDataForm.valid) {
+      this.dataSource = this.metaDataForm.getRawValue();
+    }
+    console.log(this.dataSource.id);
+    console.log(this.dataSource);
   }
 
-  onSubmit() {
-    if (this.formGroup.valid) {
-      this.dataSource = this.formGroup.getRawValue();
+  createSchemaForm() {
+    return this._formBuilder.group({
+      schema: ['']
+    });
+  }
+
+  submitDataSource() {
+    if (this.schemaForm.valid) {
+      this.dataSource.schema = this.schemaForm.getRawValue();
     }
-    this.service.addDataSource(this.dataSource).subscribe(
-      data => console.log(data)
-    );
+    console.log(this.dataSource);
+    // this.service.addDataSource(this.dataSource).subscribe(
+    //   data => console.log(data)
+    // );
   }
 }
 
