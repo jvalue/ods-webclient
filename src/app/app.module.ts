@@ -10,7 +10,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule,
-  MatCardModule, MatTabsModule, MatStepperModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+  MatCardModule, MatTabsModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatExpansionModule } from '@angular/material';
 import { OdsConfigComponent } from './ods-config/ods-config.component';
 import { SettingsComponent } from './settings/settings.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -48,6 +48,7 @@ import { DataSourceDetailComponent } from './ods-config/components/data-source-d
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatExpansionModule,
     // StoreModule.forRoot(reducers, {}), // reducers, initial state
     // NgrxJsonApiModule.configure({
     //   apiUrl: 'http://localhost.com',
