@@ -18,11 +18,18 @@ import {DataView} from '../../../shared/model/data-view';
 })
 export class DataSourceDetailComponent implements OnInit {
 
+  id: string;
+
   public dataSource: Observable<DataSource>;
   public notificationClients: Observable<NotificationClient[]>;
   public processorChains: Observable<ProcessorChain[]>;
   public plugins: Observable<Plugin[]>;
   public views: Observable<DataView[]>;
+
+  showChain = false;
+  showView = false;
+  public processorChain: ProcessorChain;
+  public dataView: DataView;
 
   constructor(
     private datasourceService: DataSourceService,
@@ -34,12 +41,20 @@ export class DataSourceDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    const id = this.route.snapshot.params['sourceId'];
-    this.dataSource = this.datasourceService.getDataSourceById(id);
-    this.notificationClients = this.notificationsService.getAllClients(id);
-    this.processorChains = this.processorChainService.getAllProcessorChains(id);
-    this.plugins = this.pluginService.getAllPlugins(id);
-    this.views = this.dataViewService.getAllViews(id);
+    this.id = this.route.snapshot.params['sourceId'];
+    this.dataSource = this.datasourceService.getDataSourceById(this.id);
+    this.notificationClients = this.notificationsService.getAllClients(this.id);
+    this.processorChains = this.processorChainService.getAllProcessorChains(this.id);
+    this.plugins = this.pluginService.getAllPlugins(this.id);
+    this.views = this.dataViewService.getAllViews(this.id);
+  }
+
+  deleteProcessorChain(chainId: string) {
+    this.processorChainService.deleteProcessorChain(this.id, chainId).subscribe();
+  }
+
+  deleteDataView(viewId: string) {
+    this.dataViewService.deleteView(this.id, viewId).subscribe();
   }
 
 }

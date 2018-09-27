@@ -7,17 +7,22 @@
   <table>
     <tr>
       <th>Id</th>
-      <th>DomainIdKey</th>
       <th>Title</th>
+      <th>Name</th>
     </tr>
 
     <tr *ngFor="let datasource of datasources | async">
-      <td>{{datasource.domainIdKey}}</td>
+      <td>{{datasource.id}}</td>
       <td>{{datasource.metaData.title}}</td>
       <td>{{datasource.metaData.name}}</td>
       <td>
-        <button mat-button [routerLink]="['/odsConfig', datasource.id, 'details']">
+        <button mat-button [routerLink]="['/odsConfig/datasources', datasource.id, 'details']">
           Details
+        </button>
+      </td>
+      <td>
+        <button mat-button (click)="deleteDatasource(datasource.id)">
+          Delete
         </button>
       </td>
     </tr>

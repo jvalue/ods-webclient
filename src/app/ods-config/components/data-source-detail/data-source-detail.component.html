@@ -32,6 +32,9 @@
         Author Email: {{(dataSource | async)?.metaData.authorEmail}}
       </p>
       <p>
+        Notes: {{(dataSource | async)?.metaData.notes}}
+      </p>
+      <p>
         Url: {{(dataSource | async)?.metaData.url}}
       </p>
       <p>
@@ -46,9 +49,11 @@
           Schema
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <pre>
+      <mat-card>
+        <pre>
         {{(((dataSource | async)?.schema) | json)}}
-      </pre>
+        </pre>
+      </mat-card>
     </mat-expansion-panel>
 
     <!--ProcessorChains Panel-->
@@ -66,10 +71,54 @@
         <tr *ngFor="let chain of processorChains | async">
           <td>{{chain.id}}</td>
           <td>
-            <button mat-button>Delete</button>
+            <button mat-button (click)="showChain = true; processorChain = chain">show Details</button>
+          </td>
+          <td>
+            <button mat-button (click)="deleteProcessorChain(chain.id)">Delete</button>
           </td>
         </tr>
       </table>
+      <mat-card *ngIf="showChain">
+        <button mat-button (click)="showChain = false">Hide</button>
+          <pre>
+          {{processorChain.processors | json}}
+        </pre>
+      </mat-card>
+    </mat-expansion-panel>
+
+    <!--DataView Panel-->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          DataViews
+        </mat-panel-title>
+        <mat-panel-description>
+          <button mat-button>+ DataView</button>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <table>
+        <th>ID</th>
+        <tr *ngFor="let view of views | async">
+          <td>{{view.id}}</td>
+          <td>
+            <button mat-button (click)="showView = true; dataView = view">show Details</button>
+          </td>
+          <td>
+            <button mat-button (click)="deleteDataView(view.id)">Delete</button>
+          </td>
+        </tr>
+      </table>
+      <mat-card *ngIf="showView">
+        <button mat-button (click)="showView = false">Hide</button>
+        <p>Map-Function</p>
+        <pre>
+          {{dataView.mapFunction | json}}
+        </pre>
+        <p ng-if="!dataView.reduceFunction.isEmpty()">Reduce-Function</p>
+        <pre>
+          {{dataView.reduceFunction | json}}
+        </pre>
+      </mat-card>
     </mat-expansion-panel>
 
     <!--Notifications Panel-->
@@ -112,29 +161,6 @@
         </tr>
       </table>
     </mat-expansion-panel>
-
-    <!--DataView Panel-->
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          DataViews
-        </mat-panel-title>
-        <mat-panel-description>
-          <button mat-button>+ DataView</button>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <table>
-        <th>ID</th>
-        <tr *ngFor="let view of views | async">
-          <td>{{view.id}}</td>
-          <td>
-            <button mat-button>Delete</button>
-          </td>
-        </tr>
-      </table>
-    </mat-expansion-panel>
-
   </mat-accordion>
 </div>
 

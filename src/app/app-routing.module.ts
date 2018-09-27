@@ -9,7 +9,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {OdsConfigComponent} from './ods-config/ods-config.component';
 import {OverviewComponent} from './overview/overview.component';
 import {DataSourceDetailComponent} from './ods-config/components/data-source-detail/data-source-detail.component';
-import {DataSourceFormComponent} from './ods-config/components/data-source.form/data-source.form.component';
+import {DataSourceFormComponent} from './ods-config/components/data-source-form/data-source.form.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'odsConfig', component: OdsConfigComponent },
   { path: 'overview', component: OverviewComponent },
   { path: 'settings', component: SettingsComponent },
-  { path: 'odsConfig/:sourceId/details', component: DataSourceDetailComponent},
+  { path: 'odsConfig/datasources/:sourceId/details', component: DataSourceDetailComponent},
   { path: 'odsConfig/newDataSource', component: DataSourceFormComponent},
   { path: '**', redirectTo: '/dashboard', pathMatch: 'full'}
 ];

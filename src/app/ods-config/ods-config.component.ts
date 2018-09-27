@@ -22,4 +22,8 @@ export class OdsConfigComponent implements OnInit {
   ngOnInit() {
     this.datasources = this.dataSourceService.getDataSource();
   }
+
+  deleteDatasource(sourceId: string) {
+    this.dataSourceService.deleteDataSource(sourceId).subscribe();
+  }
 }
