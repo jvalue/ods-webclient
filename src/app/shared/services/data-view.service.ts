@@ -19,27 +19,15 @@ export class DataViewService {
   getAllViews(sourceId: string): Observable<DataView[]> {
     return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/views');
   }
+  getView(sourceId: string, viewId: string) {
+    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/views/' + viewId);
+  }
 
-  // @GET
-  // @Path("/{viewId}")
-  // public Object getView(
-  //   @PathParam("sourceId") String sourceId,
-  // @PathParam("viewId") String viewId,
-  // @QueryParam("execute") boolean execute,
-  // @QueryParam("argument") String argument)
-  //
-  // @PUT
-  // @Path("/{viewId}")
-  // public DataView addView(
-  //   @RestrictedTo(Role.ADMIN) User user,
-  // @PathParam("sourceId") String sourceId,
-  // @PathParam("viewId") String viewId,
-  // @Valid DataViewDescription viewDescription)
-  //
-  // @DELETE
-  // @Path("/{viewId}")
-  // public void deleteView(
-  //   @RestrictedTo(Role.ADMIN) User user,
-  // @PathParam("sourceId") String sourceId,
-  // @PathParam("viewId") String viewId)
+  addView(sourceId: string, viewId: string, view: DataView) {
+    return this.service.put(this.odsBaseUrl + '/datasources/' + sourceId + '/views/' + viewId, view);
+  }
+
+  deleteView(sourceId: string, viewId: string) {
+    return this.service.delete(this.odsBaseUrl + '/datasources/' + sourceId + '/views/' + viewId);
+  }
 }

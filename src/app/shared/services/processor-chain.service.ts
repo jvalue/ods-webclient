@@ -19,12 +19,12 @@ export class ProcessorChainService {
     return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/filterChains');
   }
   getProcessorChain(sourceId: string, filterChainId: string): Observable<ProcessorChain> {
-    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/' + filterChainId);
+    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/filterChains/' + filterChainId);
   }
   addProcessorChain(sourceId: string, filterChainId: string) {
-    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/' + filterChainId);
+    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/filterChains/' + filterChainId);
   }
   deleteProcessorChain(sourceId: string, filterChainId: string) {
-    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/' + filterChainId);
+    return this.service.delete(this.odsBaseUrl + '/datasources/' + sourceId + '/filterChains/' + filterChainId);
   }
 }

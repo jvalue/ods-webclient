@@ -43,7 +43,7 @@ export class BasicRestService {
       .pipe(catchError(this.handleError));
   }
 
-  delete(url: string): Observable<any> {
+  delete(url: string) {
     return this.http.delete(url, requestOptions)
       .pipe(catchError(this.handleError));
   }
