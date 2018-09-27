@@ -1,5 +1,5 @@
 <div>
-  <button [routerLink]="['newDataSource']">
+  <button mat-button [routerLink]="['newDataSource']">
     + DataSource
   </button>
 </div>
@@ -9,7 +9,6 @@
       <th>Id</th>
       <th>DomainIdKey</th>
       <th>Title</th>
-      <th>Name</th>
     </tr>
 
     <tr *ngFor="let datasource of datasources | async">
@@ -17,7 +16,7 @@
       <td>{{datasource.metaData.title}}</td>
       <td>{{datasource.metaData.name}}</td>
       <td>
-        <button [routerLink]="['/odsConfig', datasource.id, 'details']">
+        <button mat-button [routerLink]="['/odsConfig', datasource.id, 'details']">
           Details
         </button>
       </td>
