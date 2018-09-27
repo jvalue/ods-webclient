@@ -17,7 +17,7 @@ export class DataViewService {
   constructor(private service: BasicRestService) { }
 
   getAllViews(sourceId: string): Observable<DataView[]> {
-    return this.service.get(this.odsBaseUrl + '/' + sourceId + '/views');
+    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/views');
   }
 
   // @GET

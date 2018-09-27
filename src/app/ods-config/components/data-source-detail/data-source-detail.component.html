@@ -3,15 +3,16 @@
     DataSource Details
   </p>
 </div>
+
 <div>
   <mat-accordion>
+    <!--MetaData Panel-->
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           Metadata
         </mat-panel-title>
       </mat-expansion-panel-header>
-
       <p>
         Id: {{(dataSource | async)?.id}}
       </p>
@@ -33,9 +34,12 @@
       <p>
         Url: {{(dataSource | async)?.metaData.url}}
       </p>
+      <p>
+        TermsOfUse: {{(dataSource | async)?.metaData.termsOfUse}}
+      </p>
     </mat-expansion-panel>
 
-
+    <!--Schema Panel-->
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -46,45 +50,90 @@
         {{(((dataSource | async)?.schema) | json)}}
       </pre>
     </mat-expansion-panel>
+
+    <!--ProcessorChains Panel-->
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           ProcessorChains
         </mat-panel-title>
+        <mat-panel-description>
+          <button mat-button>+ ProcessorChain</button>
+        </mat-panel-description>
       </mat-expansion-panel-header>
-
+      <table>
+        <th>ID</th>
+        <tr *ngFor="let chain of processorChains | async">
+          <td>{{chain.id}}</td>
+          <td>
+            <button mat-button>Delete</button>
+          </td>
+        </tr>
+      </table>
     </mat-expansion-panel>
 
-
+    <!--Notifications Panel-->
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           Notifications
         </mat-panel-title>
+        <mat-panel-description>
+          <button mat-button>+ Notification</button>
+        </mat-panel-description>
       </mat-expansion-panel-header>
-
+      <table>
+        <th>ID</th>
+        <th>Type</th>
+        <tr *ngFor="let client of notificationClients | async">
+          <td>{{client.id}}</td>
+          <td>{{client.type}}</td>
+        </tr>
+      </table>
     </mat-expansion-panel>
 
-
+    <!--Plugins Panel-->
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           Plugins
         </mat-panel-title>
+        <mat-panel-description>
+          <button mat-button>+ Plugin</button>
+        </mat-panel-description>
       </mat-expansion-panel-header>
-
+      <table>
+        <th>ID</th>
+        <tr *ngFor="let plugin  of plugins | async">
+          <td>{{plugin.id}}</td>
+          <td>
+            <button mat-button>Delete</button>
+          </td>
+        </tr>
+      </table>
     </mat-expansion-panel>
 
-
+    <!--DataView Panel-->
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           DataViews
         </mat-panel-title>
+        <mat-panel-description>
+          <button mat-button>+ DataView</button>
+        </mat-panel-description>
       </mat-expansion-panel-header>
 
+      <table>
+        <th>ID</th>
+        <tr *ngFor="let view of views | async">
+          <td>{{view.id}}</td>
+          <td>
+            <button mat-button>Delete</button>
+          </td>
+        </tr>
+      </table>
     </mat-expansion-panel>
-
 
   </mat-accordion>
 </div>
