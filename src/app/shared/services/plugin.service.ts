@@ -17,6 +17,6 @@ export class PluginService {
   constructor(private service: BasicRestService) { }
 
   getAllPlugins(sourceId: string): Observable<Plugin[]> {
-    return this.service.get(this.odsBaseUrl + '/' + sourceId + '/plugins');
+    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/plugins');
   }
 }

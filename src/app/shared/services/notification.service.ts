@@ -12,11 +12,9 @@ import {NotificationClient} from '../model/notification-client';
 })
 export class NotificationService {
 
-  odsBaseUrl = 'http://localhost:8080/ods/api/v1';
-
   constructor(private service: BasicRestService) { }
 
   getAllClients(sourceId: string): Observable<NotificationClient[]> {
-    return this.service.get(this.odsBaseUrl + '/' + sourceId + '/notifications');
+    return this.service.get(this.service.odsBaseApiUrlV1 + '/datasources/' + sourceId + '/notifications');
   }
 }

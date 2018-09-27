@@ -16,15 +16,15 @@ export class ProcessorChainService {
   constructor(private service: BasicRestService) { }
 
   getAllProcessorChains(sourceId: string): Observable<ProcessorChain[]> {
-    return this.service.get(this.odsBaseUrl + '/' + sourceId + '/filterChains');
+    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/filterChains');
   }
   getProcessorChain(sourceId: string, filterChainId: string): Observable<ProcessorChain> {
-    return this.service.get(this.odsBaseUrl + '/' + sourceId + '/' + filterChainId);
+    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/' + filterChainId);
   }
   addProcessorChain(sourceId: string, filterChainId: string) {
-    return this.service.get(this.odsBaseUrl + '/' + sourceId + '/' + filterChainId);
+    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/' + filterChainId);
   }
   deleteProcessorChain(sourceId: string, filterChainId: string) {
-    return this.service.get(this.odsBaseUrl + '/' + sourceId + '/' + filterChainId);
+    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/' + filterChainId);
   }
 }
