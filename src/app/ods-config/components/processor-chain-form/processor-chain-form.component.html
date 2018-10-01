@@ -1,7 +1,3 @@
-<p>
-  this is processorChain Form
-</p>
-
 <form [formGroup]="processorChainForm" (ngSubmit)="save(processorChainForm)">
 
   <div>
@@ -15,27 +11,28 @@
     <div *ngFor="let processor of processorsArray.controls; let i=index">
 
       <div>
-      <span>Processor {{i + 1}}</span>
-      <span *ngIf="processorsArray.controls.length > 1"
-      (click)="removeProcessor(i)">
+        <span>Processor {{i + 1}}</span>
+        <span *ngIf="processorsArray.controls.length > 1"
+              (click)="removeProcessor(i)">
       </span>
       </div>
 
       <div [formGroupName]="i">
         <div>
-          <input type="text" formControlName="name">
+          <input type="text" formControlName="name" placeholder="processor name">
           <small [hidden]="processorsArray.controls[i].controls.name.valid">
-          Name is required
+            Name is required
           </small>
         </div>
         <div formGroupName="arguments">
-          <label>Argument key</label>
-          <input #name>
-          <label>Argument value</label>
-          <input #value>
-          <button mat-button (click)="addArgs(processorsArray.controls[i].controls.arguments, name.value, value.value)">
-            Add Argument
-          </button>
+          <input #name placeholder="argument key">
+          <input #value placeholder="argument object">
+          <div>
+            <button mat-button
+                    (click)="addArgs(processorsArray.controls[i].controls.arguments, name.value, value.value)">
+              Add Argument
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -45,10 +42,6 @@
     <button mat-button (click)="addProcessor()">
       Add another processor +
     </button>
-  </div>
-
-  <div>
-
   </div>
 
   <div>
