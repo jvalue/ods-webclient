@@ -4,7 +4,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DataSourceFormComponent } from './data-source.form.component';
+import { DataSourceFormComponent } from './data-source-form.component';
 
 describe('DataSourceFormComponent', () => {
   let component: DataSourceFormComponent;

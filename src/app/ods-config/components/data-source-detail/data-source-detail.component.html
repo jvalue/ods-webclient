@@ -63,7 +63,7 @@
           ProcessorChains
         </mat-panel-title>
         <mat-panel-description>
-          <button mat-button>+ ProcessorChain</button>
+          <button mat-button [routerLink]="['/odsConfig/datasources', (dataSource |async)?.id, 'newProcessorChain']">+ ProcessorChain</button>
         </mat-panel-description>
       </mat-expansion-panel-header>
       <table>

@@ -16,8 +16,9 @@ import { SettingsComponent } from './settings/settings.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { OverviewComponent } from './overview/overview.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { DataSourceFormComponent } from './ods-config/components/data-source-form/data-source.form.component';
+import { DataSourceFormComponent } from './ods-config/components/data-source-form/data-source-form.component';
 import { DataSourceDetailComponent } from './ods-config/components/data-source-detail/data-source-detail.component';
+import { ProcessorChainFormComponent } from './ods-config/components/processor-chain-form/processor-chain-form.component';
 // import {StoreModule} from '@ngrx/store';
 // import {NgrxJsonApiModule} from 'ngrx-json-api';
 
@@ -29,7 +30,8 @@ import { DataSourceDetailComponent } from './ods-config/components/data-source-d
     DashboardComponent,
     OverviewComponent,
     DataSourceFormComponent,
-    DataSourceDetailComponent
+    DataSourceDetailComponent,
+    ProcessorChainFormComponent
   ],
   imports: [
     BrowserModule,

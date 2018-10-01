@@ -9,7 +9,8 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {OdsConfigComponent} from './ods-config/ods-config.component';
 import {OverviewComponent} from './overview/overview.component';
 import {DataSourceDetailComponent} from './ods-config/components/data-source-detail/data-source-detail.component';
-import {DataSourceFormComponent} from './ods-config/components/data-source-form/data-source.form.component';
+import {DataSourceFormComponent} from './ods-config/components/data-source-form/data-source-form.component';
+import {ProcessorChainFormComponent} from './ods-config/components/processor-chain-form/processor-chain-form.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent },
   { path: 'odsConfig/datasources/:sourceId/details', component: DataSourceDetailComponent},
   { path: 'odsConfig/newDataSource', component: DataSourceFormComponent},
+  { path: 'odsConfig/datasources/:sourceId/newProcessorChain', component: ProcessorChainFormComponent },
   { path: '**', redirectTo: '/dashboard', pathMatch: 'full'}
 ];
 @NgModule({

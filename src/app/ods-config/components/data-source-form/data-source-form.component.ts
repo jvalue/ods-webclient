@@ -9,7 +9,7 @@ import {DataSourceService} from '../../../shared/services/data-source.service';
 
 @Component({
   selector: 'app-data-source-form',
-  templateUrl: './data-source.form.component.html',
+  templateUrl: './data-source-form.component.html',
 })
 export class DataSourceFormComponent implements OnInit {
 
