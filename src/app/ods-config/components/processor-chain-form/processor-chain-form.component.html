@@ -19,19 +19,20 @@
 
       <div [formGroupName]="i">
         <div>
-          <input type="text" formControlName="name" placeholder="processor name">
-          <small [hidden]="processorsArray.controls[i].controls.name.valid">
-            Name is required
-          </small>
-        </div>
-        <div formGroupName="arguments">
-          <input #name placeholder="argument key">
-          <input #value placeholder="argument object">
-          <div>
-            <button mat-button
-                    (click)="addArgs(processorsArray.controls[i].controls.arguments, name.value, value.value)">
-              Add Argument
-            </button>
+          <mat-select [(value)]="selected" placeholder="Please select a filter">
+            <mat-option *ngFor="let spec of processorChainSpezifications | async" [value]="spec.name">
+              {{spec.name}}
+            </mat-option>
+          </mat-select>
+          <div formGroupName="arguments">
+            <input #name placeholder="argument key">
+            <input #value placeholder="argument object">
+            <div>
+              <button mat-button
+                      (click)="addArgs(processorsArray.controls[i].controls.arguments, name.value, value.value)">
+                Add Argument
+              </button>
+            </div>
           </div>
         </div>
       </div>
