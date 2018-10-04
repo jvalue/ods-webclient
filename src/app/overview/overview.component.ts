@@ -14,7 +14,6 @@ import {ProcessorSpecificationService} from '../shared/services/processor-specif
 import {VersionService} from '../shared/services/version.service';
 
 
-
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
@@ -25,11 +24,12 @@ export class OverviewComponent implements OnInit {
   public datasources: Observable<DataSource[]>;
   public version: Observable<Version>;
   public processorSpecifications: Observable<ProcessorSpecification[]>;
+  public dataSrcV2: any;
 
   constructor(private userService: UserService,
               private dataSourceService: DataSourceService,
               private versionService: VersionService,
-              private processorService: ProcessorSpecificationService
+              private processorService: ProcessorSpecificationService,
   ) {}
 
   ngOnInit() {
@@ -37,6 +37,11 @@ export class OverviewComponent implements OnInit {
     this.datasources = this.dataSourceService.getDataSource();
     this.version = this.versionService.getVersion();
     this.processorSpecifications = this.processorService.getAllProcessorSpecifications();
+    this.dataSrcV2 = this.dataSourceService.getDataSourceV2();
+  }
+
+  printV2() {
+    this.dataSrcV2.subscribe(console.log);
   }
 
 }

@@ -20,8 +20,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DataSourceFormComponent } from './ods-config/components/data-source-form/data-source-form.component';
 import { DataSourceDetailComponent } from './ods-config/components/data-source-detail/data-source-detail.component';
 import { ProcessorChainFormComponent } from './ods-config/components/processor-chain-form/processor-chain-form.component';
-// import {StoreModule} from '@ngrx/store';
-// import {NgrxJsonApiModule} from 'ngrx-json-api';
 
 @NgModule({
   declarations: [
@@ -54,11 +52,6 @@ import { ProcessorChainFormComponent } from './ods-config/components/processor-c
     MatExpansionModule,
     MatSelectModule,
     MatCheckboxModule
-    // StoreModule.forRoot(reducers, {}), // reducers, initial state
-    // NgrxJsonApiModule.configure({
-    //   apiUrl: 'http://localhost.com',
-    //
-    // }),
   ],
   providers: [],
   bootstrap: [AppComponent]

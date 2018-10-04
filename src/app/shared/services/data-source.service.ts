@@ -20,11 +20,9 @@ export class DataSourceService {
     return this.service.get(this.service.odsBaseApiUrlV1 + this.dataSourceUrl);
   }
 
-  // getDataSourceV2(): Observable<DataSource[]> {
-  //   console.log(this.service.get(this.service.odsBaseApiUrlV2 + this.dataSourceUrl)
-  //     .subscribe((data: Response) => console.log(data.json())));
-  //   return null;
-  // }
+  getDataSourceV2(): Observable<DataSource[]> {
+    return this.service.getV2(this.service.odsBaseApiUrlV2 + this.dataSourceUrl);
+  }
 
   getDataSourceById(sourceId: String): Observable<DataSource> {
     return this.service.get(this.service.odsBaseApiUrlV1  + this.dataSourceUrl + '/' + sourceId);
@@ -46,4 +44,9 @@ export class DataSourceService {
   deleteDataSource(sourceId: String) {
     return this.service.delete(this.service.odsBaseApiUrlV1 + this.dataSourceUrl + '/' + sourceId);
   }
+
+  // private extractData(res: Response) {
+  //   const body = res;
+  //   return body || { };
+  // }
 }
