@@ -4,16 +4,16 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 import { TestBed, inject } from '@angular/core/testing';
 
-import { SettingsService } from './settings.service';
+import { ConfigService } from './config.service';
 
-describe('SettingsService', () => {
+describe('ConfigService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SettingsService]
+      providers: [ConfigService]
     });
   });
 
-  it('should be created', inject([SettingsService], (service: SettingsService) => {
+  it('should be created', inject([ConfigService], (service: ConfigService) => {
     expect(service).toBeTruthy();
   }));
 });

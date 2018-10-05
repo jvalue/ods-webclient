@@ -1,3 +1,13 @@
-<p>
-  settings works!
-</p>
+<form [formGroup]="configForm" (ngSubmit)="save(configForm)">
+
+  <div>
+    <mat-form-field>
+      <input matInput pattern="https?://.+" placeholder="Basic Url Name" formControlName="rootUrl" >
+    </mat-form-field>
+  </div>
+
+  <div>
+    <button mat-button type="submit">Save</button>
+  </div>
+
+</form>

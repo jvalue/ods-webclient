@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '../../../../node_modules/@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import {ConfigService} from './config.service';
 
 const headerParams = {
   'Content-Type': 'application/json',
@@ -26,7 +27,10 @@ export class BasicRestService {
   odsBaseApiUrlV1 = 'http://localhost:8080/ods/api/v1';
   odsBaseApiUrlV2 = 'http://localhost:8080/ods/api/v2';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private configService: ConfigService) {
+    this.odsBaseApiUrlV1 = this.configService.getBasicUrl();
+  }
 
   get(url: string): Observable<any> {
     return this.http.get(url, requestOptions)
