@@ -7,7 +7,6 @@ import {AbstractRestService} from './abstract-rest.service';
 const headerParams = {
   'Content-Type': 'application/json',
   'Accept': 'application/json',
-  'Access-Control-Allow-Headers': 'Content-Type',
   'Authorization' : String('Basic ' + btoa('admin@adminland.com:admin123'))
 };
 
@@ -28,11 +27,6 @@ export class V1RestService extends AbstractRestService {
     return this.http.get(url, requestOptions)
       .pipe(catchError(this.handleError));
   }
-
-  getV2(url: string): Observable<any> {
-    return this.http.get(url);
-  }
-
 
   post(url: string, data: any): Observable<any> {
     return this.http.post(url, data, requestOptions)
