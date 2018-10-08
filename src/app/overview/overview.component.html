@@ -50,17 +50,12 @@
     </table>
   </mat-tab>
 
-
-  <mat-tab label="v2 test">
-    <button (click)="printV2()">click here</button>
-
-    <table>
-    <tr *ngFor="let datasource of (dataSrcV2 | async)?.data">
-      <td>{{datasource.id}}</td>
-      <td>{{datasource.domainIdKey}}</td>
-    </tr>
-    </table>
-  </mat-tab>
+  <!--<mat-tab label="DataSources">-->
+    <!--<div *ngFor="let datasource of datasources | async">-->
+      <!--{{datasource.dataSource.id}}-->
+      <!--{{datasource.dataSource.metaData.name}}-->
+    <!--</div>-->
+  <!--</mat-tab>-->
 
 </mat-tab-group>
 

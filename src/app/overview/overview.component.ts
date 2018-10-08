@@ -24,7 +24,6 @@ export class OverviewComponent implements OnInit {
   public datasources: Observable<DataSource[]>;
   public version: Observable<Version>;
   public processorSpecifications: Observable<ProcessorSpecification[]>;
-  public dataSrcV2: any;
 
   constructor(private userService: UserService,
               private dataSourceService: DataSourceService,
@@ -37,11 +36,6 @@ export class OverviewComponent implements OnInit {
     this.datasources = this.dataSourceService.getDataSource();
     this.version = this.versionService.getVersion();
     this.processorSpecifications = this.processorService.getAllProcessorSpecifications();
-    this.dataSrcV2 = this.dataSourceService.getDataSourceV2();
-  }
-
-  printV2() {
-    this.dataSrcV2.subscribe(console.log);
   }
 
 }
