@@ -12,11 +12,9 @@ import {BasicRestService} from './basic-rest.service';
 })
 export class ProcessorSpecificationService {
 
-  odsBaseUrl = 'http://localhost:8080/ods/api/v1';
-
   constructor(private service: BasicRestService) { }
 
   getAllProcessorSpecifications(): Observable<ProcessorSpecification[]> {
-    return this.service.get(this.odsBaseUrl + '/filterTypes');
+    return this.service.get('/filterTypes');
   }
 }

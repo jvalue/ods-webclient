@@ -12,11 +12,9 @@ import {Plugin} from '../model/plugin';
 })
 export class PluginService {
 
-  odsBaseUrl = 'http://localhost:8080/ods/api/v1';
-
   constructor(private service: BasicRestService) { }
 
   getAllPlugins(sourceId: string): Observable<Plugin[]> {
-    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/plugins');
+    return this.service.get('/datasources/' + sourceId + '/plugins');
   }
 }

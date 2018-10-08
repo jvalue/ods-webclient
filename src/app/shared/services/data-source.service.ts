@@ -17,19 +17,15 @@ export class DataSourceService {
   constructor(private service: BasicRestService) {}
 
   getDataSource(): Observable<DataSource[]> {
-    return this.service.get(this.service.odsBaseApiUrlV1 + this.dataSourceUrl);
-  }
-
-  getDataSourceV2(): Observable<DataSource[]> {
-    return this.service.getV2(this.service.odsBaseApiUrlV2 + this.dataSourceUrl);
+    return this.service.get(this.dataSourceUrl);
   }
 
   getDataSourceById(sourceId: String): Observable<DataSource> {
-    return this.service.get(this.service.odsBaseApiUrlV1  + this.dataSourceUrl + '/' + sourceId);
+    return this.service.get(this.dataSourceUrl + '/' + sourceId);
   }
 
   getDataSourceSchemaById(sourceId: String): Observable<DataSource> {
-    return this.service.get(this.service.odsBaseApiUrlV1  + this.dataSourceUrl + '/' + sourceId + '/schema');
+    return this.service.get(this.dataSourceUrl + '/' + sourceId + '/schema');
   }
 
   addDataSource(body: DataSource) {
@@ -38,15 +34,11 @@ export class DataSourceService {
     const data = JSON.stringify(body,
       ['domainIdKey', 'schema', 'metaData', 'name',
         'title', 'author', 'authorEmail', 'url', 'notes', 'termsOfUse']);
-    return this.service.put(this.service.odsBaseApiUrlV1 + this.dataSourceUrl + '/' + sourceId, data);
+    return this.service.put(this.dataSourceUrl + '/' + sourceId, data);
   }
 
   deleteDataSource(sourceId: String) {
-    return this.service.delete(this.service.odsBaseApiUrlV1 + this.dataSourceUrl + '/' + sourceId);
+    return this.service.delete( this.dataSourceUrl + '/' + sourceId);
   }
 
-  // private extractData(res: Response) {
-  //   const body = res;
-  //   return body || { };
-  // }
 }

@@ -12,22 +12,21 @@ import {DataView} from '../model/data-view';
 })
 export class DataViewService {
 
-  odsBaseUrl = 'http://localhost:8080/ods/api/v1';
 
   constructor(private service: BasicRestService) { }
 
   getAllViews(sourceId: string): Observable<DataView[]> {
-    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/views');
+    return this.service.get('/datasources/' + sourceId + '/views');
   }
   getView(sourceId: string, viewId: string) {
-    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/views/' + viewId);
+    return this.service.get('/datasources/' + sourceId + '/views/' + viewId);
   }
 
   addView(sourceId: string, viewId: string, view: DataView) {
-    return this.service.put(this.odsBaseUrl + '/datasources/' + sourceId + '/views/' + viewId, view);
+    return this.service.put('/datasources/' + sourceId + '/views/' + viewId, view);
   }
 
   deleteView(sourceId: string, viewId: string) {
-    return this.service.delete(this.odsBaseUrl + '/datasources/' + sourceId + '/views/' + viewId);
+    return this.service.delete('/datasources/' + sourceId + '/views/' + viewId);
   }
 }

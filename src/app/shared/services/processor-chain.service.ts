@@ -11,20 +11,19 @@ import {ProcessorChain} from '../model/processor-chain';
   providedIn: 'root'
 })
 export class ProcessorChainService {
-  odsBaseUrl = 'http://localhost:8080/ods/api/v1';
 
   constructor(private service: BasicRestService) { }
 
   getAllProcessorChains(sourceId: string): Observable<ProcessorChain[]> {
-    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/filterChains');
+    return this.service.get('/datasources/' + sourceId + '/filterChains');
   }
   getProcessorChain(sourceId: string, filterChainId: string): Observable<ProcessorChain> {
-    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/filterChains/' + filterChainId);
+    return this.service.get('/datasources/' + sourceId + '/filterChains/' + filterChainId);
   }
   addProcessorChain(sourceId: string, filterChainId: string) {
-    return this.service.get(this.odsBaseUrl + '/datasources/' + sourceId + '/filterChains/' + filterChainId);
+    return this.service.get('/datasources/' + sourceId + '/filterChains/' + filterChainId);
   }
   deleteProcessorChain(sourceId: string, filterChainId: string) {
-    return this.service.delete(this.odsBaseUrl + '/datasources/' + sourceId + '/filterChains/' + filterChainId);
+    return this.service.delete('/datasources/' + sourceId + '/filterChains/' + filterChainId);
   }
 }

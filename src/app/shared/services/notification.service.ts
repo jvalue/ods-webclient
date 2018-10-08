@@ -15,6 +15,6 @@ export class NotificationService {
   constructor(private service: BasicRestService) { }
 
   getAllClients(sourceId: string): Observable<NotificationClient[]> {
-    return this.service.get(this.service.odsBaseApiUrlV1 + '/datasources/' + sourceId + '/notifications');
+    return this.service.get('/datasources/' + sourceId + '/notifications');
   }
 }

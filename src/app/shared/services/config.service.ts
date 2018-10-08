@@ -14,8 +14,6 @@ enum ApiVersion {
 })
 export class ConfigService {
 
-  odsBaseApiUrlV1 = 'http://localhost:8080/ods/api/v1';
-  odsBaseApiUrlV2 = 'http://localhost:8080/ods/api/v2';
   rootUrl = 'http://localhost:8080/ods/api/';
   apiVersionString: String = 'v1';
 
@@ -40,7 +38,7 @@ export class ConfigService {
   }
 
   public getBasicUrl(): string {
-    return this.rootUrl + 'v1';
+    return this.rootUrl + this.apiVersionString;
   }
 
   public setRootUrl(url: string) {

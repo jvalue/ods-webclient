@@ -15,6 +15,7 @@ export class VersionService {
   constructor(private service: BasicRestService) { }
 
   public getVersion(): Observable<Version> {
-    return this.service.get(this.service.odsBaseApiUrlV1 + '/version');
+    return this.service.get('/version');
   }
+
 }
