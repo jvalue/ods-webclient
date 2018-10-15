@@ -5,10 +5,11 @@
   <mat-step>
     <ng-template matStepLabel>Put in the MetaData</ng-template>
 
-    <form [formGroup]="metaDataForm">
+    <form [formGroup]="metaDataForm" (ngSubmit)="submitMetaData()">
       <div>
         <mat-form-field>
-          <input matInput placeholder="id" formControlName="id" required>
+          <input matInput placeholder=" id
+    " formControlName="id" required>
         </mat-form-field>
       </div>
       <div>
@@ -54,15 +55,15 @@
           </mat-form-field>
         </div>
       </div>
+      <button type="submit" mat-button matStepperNext [disabled]="!metaDataForm.valid">Next</button>
     </form>
 
-    <button mat-button matStepperNext (click)="submitMetaData()">Next</button>
   </mat-step>
 
   <mat-step>
     <ng-template matStepLabel>Put in the Schema</ng-template>
 
-    <form [formGroup]="schemaForm">
+    <form [formGroup]="schemaForm" (ngSubmit)="submitDataSource()">
       <div>
         <mat-form-field>
           <input matInput placeholder="schema" formControlName="schema">
@@ -71,7 +72,7 @@
     </form>
 
     <div>
-      <button mat-button (click)="submitDataSource()">Submit & Finish</button>
+      <button type="submit" mat-button [disabled]="!schemaForm.valid">Submit & Finish</button>
       <button mat-button matStepperPrevious>Back</button>
     </div>
   </mat-step>
