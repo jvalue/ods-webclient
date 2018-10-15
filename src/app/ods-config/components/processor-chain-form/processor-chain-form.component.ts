@@ -80,8 +80,12 @@ export class ProcessorChainFormComponent implements OnInit {
     this.filterFormArray.push(this.createProcessor());
   }
 
+  deleteProcessor(index: number) {
+    this.filterFormArray.removeAt(index);
+  }
+
   save() {
-    // if (this.processorChainForm.valid) {
+    if (this.processorChainForm.valid) {
       this.processorArray.push(this.adapterFormGroup);
       for (let i = 0; i < this.filterFormArray.length; i++) {
         this.processorArray.push(this.filterFormArray.at(i));
@@ -93,7 +97,7 @@ export class ProcessorChainFormComponent implements OnInit {
           console.log('ERROR: executionInterval not valid');
         }
       }
-    // }
+    }
     console.log(this.processorChainForm.getRawValue());
   }
 

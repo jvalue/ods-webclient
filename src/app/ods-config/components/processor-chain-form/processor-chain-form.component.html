@@ -23,6 +23,7 @@
 
         <div [formGroupName]="i">
           <span>Filter {{i + 1}}</span>
+          <button mat-button type="button" (click)="deleteProcessor(i)">Delete</button>
           <mat-select placeholder="Please select a filter" formControlName="name">
             <mat-option *ngFor="let filter of filterArray | async"
                         [value]="filter.name">
@@ -30,6 +31,7 @@
             </mat-option>
           </mat-select>
         </div>
+
       </div>
     </div>
   </form>
