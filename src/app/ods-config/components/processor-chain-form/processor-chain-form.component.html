@@ -1,56 +1,69 @@
-<form [formGroup]="processorChainForm" (ngSubmit)="save(processorChainForm)">
-
+<form [formGroup]="processorChainForm" (ngSubmit)="save()">
   <div>
     <mat-form-field>
-      <input matInput placeholder="ProcessorChain Name" formControlName="id">
+      <input matInput placeholder="ProcessorChain ID" formControlName="id">
     </mat-form-field>
   </div>
 
-  <div formArrayName="processors">
+  <form [formGroup]="adapterFormGroup">
+    <div>
+      <span>Adapter</span>
+      <mat-select placeholder="Please select an adapter" formControlName="name">
+        <mat-option *ngFor="let adapter of adapterArray | async"
+                    [value]="adapter.name">
+          {{adapter.name}}
+        </mat-option>
+      </mat-select>
+    </div>
+  </form>
 
-    <div *ngFor="let processor of processorsArray.controls; let i=index">
+  <form [formGroup]="filterFormGroup">
+    <div formArrayName="filters">
+      <div *ngFor="let processor of filterFormArray.controls; let i=index">
 
-      <div>
-        <span>Processor {{i + 1}}</span>
-        <span *ngIf="processorsArray.controls.length > 1"
-              (click)="removeProcessor(i)">
-      </span>
-      </div>
-
-      <div [formGroupName]="i">
-        <div>
-          <mat-select [(value)]="selected" placeholder="Please select a filter">
-            <mat-option *ngFor="let spec of processorChainSpezifications | async" [value]="spec.name">
-              {{spec.name}}
+        <div [formGroupName]="i">
+          <span>Filter {{i + 1}}</span>
+          <mat-select placeholder="Please select a filter" formControlName="name">
+            <mat-option *ngFor="let filter of filterArray | async"
+                        [value]="filter.name">
+              {{filter.name}}
             </mat-option>
           </mat-select>
-          <div formGroupName="arguments">
-            <input #name placeholder="argument key">
-            <input #value placeholder="argument object">
-            <div>
-              <button mat-button
-                      (click)="addArgs(processorsArray.controls[i].controls.arguments, name.value, value.value)">
-                Add Argument
-              </button>
-            </div>
-          </div>
         </div>
+      </div>
+    </div>
+  </form>
+
+  <div>
+    <button mat-button type="button" (click)="addProcessor()">
+      Add filter+
+    </button>
+  </div>
+
+  <div>
+    <mat-checkbox [checked]="exIntervalBool" (change)="exIntervalBool = !exIntervalBool">Add ExecutionInterval</mat-checkbox>
+    <div *ngIf="exIntervalBool">
+      <div [formGroup]="executionInterval">
+        <input type="number" matInput placeholder="Please put in a value between 1 and 60" formControlName="period">
+        <div *ngIf="executionInterval.invalid" >
+          <span>
+            ! Value not between 1 and 60 !
+          </span>
+        </div>
+        <mat-select placeholder="Please select a TimeUnit" formControlName="unit">
+          <mat-option *ngFor="let unit of timeUnits"
+                      [value]="unit">
+            {{unit}}
+          </mat-option>
+        </mat-select>
       </div>
     </div>
   </div>
 
   <div>
-    <button mat-button (click)="addProcessor()">
-      Add another processor +
-    </button>
-  </div>
-
-  <div>
     <button type="submit" [disabled]="!processorChainForm.valid">Submit</button>
   </div>
-
 </form>
-
 
 
 
