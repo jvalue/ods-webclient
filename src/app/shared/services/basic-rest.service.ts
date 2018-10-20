@@ -2,62 +2,61 @@
 Copyright (c) 2018 Friedrich-Alexander University Erlangen-Nürnberg (FAU)
 SPDX-License-Identifier: AGPL-3.0-only
 */
-import { Injectable } from '@angular/core';
-import {HttpClient} from '../../../../node_modules/@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '../../../../node_modules/@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {ConfigService} from './config.service';
-import {V1RestService} from './v1-rest.service';
-import {V2RestService} from './v2-rest.service';
-import {AbstractRestService} from './abstract-rest.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BasicRestService {
 
-  basicUrl: string;
-  apiVersion: String = 'v1';
-  restService: AbstractRestService;
+  endpointUrl: String = 'http://localhost:8080/ods/api/v1';
 
-  constructor(private configService: ConfigService,
-              private http: HttpClient) {
-    this.basicUrl = this.configService.getBasicUrl();
-    this.apiVersion = this.configService.getVersion();
-    this.setRestService();
+  headerParams = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization' : ''
+  };
+
+  requestOptions = {
+    headers: null
+  };
+
+  constructor(private http: HttpClient) {
+    this.appendAuthorizationToHeaderParams('admin@adminland.com', 'admin123');
+    this.requestOptions = {
+      headers: new HttpHeaders(this.headerParams)
+    };
+
   }
 
-  setRestService() {
-    if (this.apiVersion === 'v1') {
-      this.restService = new V1RestService(this.http);
-    } else if (this.apiVersion === 'v2') {
-      this.restService = new V2RestService(this.http);
-    } else {
-      console.log('Restservice not set');
-    }
+  appendAuthorizationToHeaderParams(name: string, password: string) {
+    this.headerParams.Authorization = String('Basic ' + btoa(name + ':' + password));
   }
 
   get(url: string): Observable<any> {
-    return this.restService.get(this.basicUrl + url)
+    return this.http.get(this.endpointUrl + url, this.requestOptions)
       .pipe(catchError(this.handleError));
   }
 
   post(url: string, data: any): Observable<any> {
-    return this.restService.post(this.basicUrl + url, data)
+    return this.http.post(this.endpointUrl + url, data, this.requestOptions)
       .pipe(catchError(this.handleError));
   }
 
   put(url: string, data: any): Observable<any> {
-    return this.restService.put(this.basicUrl + url, data)
+    return this.http.put(this.endpointUrl + url, data, this.requestOptions)
       .pipe(catchError(this.handleError));
   }
 
   delete(url: string) {
-    return this.restService.delete(this.basicUrl + url)
+    return this.http.delete(this.endpointUrl + url, this.requestOptions)
       .pipe(catchError(this.handleError));
   }
 
-  private handleError(error: any) {
+  handleError(error: any) {
     console.log('error: ');
     console.log(error);
     return error;
