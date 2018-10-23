@@ -7,9 +7,9 @@ export class ProcessorSpecification {
 
   name: string;
   // @NotNull private final ProcessorType type;
-  type: any;
+  type: string;
   // @NotNull private final Map<String, Class<?>> argumentTypes;
-  argumenTypes: any;
+  argumentTypes: any;
 
   constructor () {}
 }

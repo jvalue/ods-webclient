@@ -10,7 +10,7 @@ export class ProcessorChain {
   processors: {
     name: string,
     argument: KeyValue<string, object>
-  }
-  // executionInterval: any;
+  }[];
+  executionInterval: any;
   constructor () {}
 }
