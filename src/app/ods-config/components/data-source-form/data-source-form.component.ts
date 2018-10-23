@@ -59,7 +59,7 @@ export class DataSourceFormComponent implements OnInit {
     if (this.schemaForm.valid) {
       this.dataSource.schema = this.schemaForm.getRawValue();
     }
-    this.service.addDataSource(this.dataSource);
+    this.service.addDataSource(this.dataSource).subscribe();
   }
 }
 
