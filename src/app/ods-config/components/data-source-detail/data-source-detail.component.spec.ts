@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DataSourceDetailComponent } from './data-source-detail.component';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
 
 describe('DataSourceDetailComponent', () => {
   let component: DataSourceDetailComponent;
@@ -8,7 +9,8 @@ describe('DataSourceDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DataSourceDetailComponent ]
+      declarations: [ DataSourceDetailComponent ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
   }));
