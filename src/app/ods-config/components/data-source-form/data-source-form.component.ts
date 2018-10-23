@@ -47,8 +47,6 @@ export class DataSourceFormComponent implements OnInit {
     if (this.metaDataForm.valid) {
       this.dataSource = this.metaDataForm.getRawValue();
     }
-    console.log(this.dataSource.id);
-    console.log(this.dataSource);
   }
 
   createSchemaForm() {
@@ -61,10 +59,7 @@ export class DataSourceFormComponent implements OnInit {
     if (this.schemaForm.valid) {
       this.dataSource.schema = this.schemaForm.getRawValue();
     }
-    console.log(this.dataSource);
-    this.service.addDataSource(this.dataSource).subscribe(
-      data => console.log(data)
-    );
+    this.service.addDataSource(this.dataSource);
   }
 }
 

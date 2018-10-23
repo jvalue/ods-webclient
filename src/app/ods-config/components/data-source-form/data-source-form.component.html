@@ -69,12 +69,13 @@
           <input matInput placeholder="schema" formControlName="schema">
         </mat-form-field>
       </div>
+
+      <div>
+        <button type="submit" mat-button [disabled]="!schemaForm.valid">Submit & Finish</button>
+        <button mat-button matStepperPrevious>Back</button>
+      </div>
     </form>
 
-    <div>
-      <button type="submit" mat-button [disabled]="!schemaForm.valid">Submit & Finish</button>
-      <button mat-button matStepperPrevious>Back</button>
-    </div>
   </mat-step>
 </mat-horizontal-stepper>
 
