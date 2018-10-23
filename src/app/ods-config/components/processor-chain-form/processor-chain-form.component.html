@@ -23,7 +23,7 @@
 
         <div [formGroupName]="i">
           <span>Filter {{i + 1}}</span>
-          <button mat-button type="button" (click)="deleteProcessor(i)">Delete</button>
+          <button mat-button type="button" (click)="removeFilter(i)">Delete</button>
           <mat-select placeholder="Please select a filter" formControlName="name">
             <mat-option *ngFor="let filter of filterArray | async"
                         [value]="filter.name">
@@ -37,27 +37,29 @@
   </form>
 
   <div>
-    <button mat-button type="button" (click)="addProcessor()">
+    <button mat-button type="button" (click)="addFilter()">
       Add filter+
     </button>
   </div>
 
   <div>
-    <mat-checkbox [checked]="exIntervalBool" (change)="exIntervalBool = !exIntervalBool">Add ExecutionInterval</mat-checkbox>
+    <input type="checkbox" mat-checkbox [checked]="exIntervalBool" (change)="exIntervalBool = !exIntervalBool"
+           label="Add ExecutionInterval"/>
     <div *ngIf="exIntervalBool">
-      <div [formGroup]="executionInterval">
+      <div>
+        <form formGroupName="executionIntervalForm">
         <input type="number" matInput placeholder="Please put in a value between 1 and 60" formControlName="period">
-        <div *ngIf="executionInterval.invalid" >
+        <div *ngIf="executionIntervalForm.invalid" >
           <span>
             ! Value not between 1 and 60 !
           </span>
         </div>
         <mat-select placeholder="Please select a TimeUnit" formControlName="unit">
-          <mat-option *ngFor="let unit of timeUnits"
-                      [value]="unit">
+          <mat-option *ngFor="let unit of timeUnits">
             {{unit}}
           </mat-option>
         </mat-select>
+        </form>
       </div>
     </div>
   </div>
@@ -67,5 +69,17 @@
   </div>
 </form>
 
+
+<div *ngFor="let adapter of adapterArray | async">
+  {{adapter.argumentTypes | json}}
+</div>
+
+<div *ngFor="let adapter of filterArray | async">
+  {{adapter.argumentTypes | json}}
+</div>
+
+<div>
+  <button (click)="test()">test</button>
+</div>
 
 

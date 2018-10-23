@@ -4,12 +4,16 @@ import {ProcessorSpecification} from '../../../shared/model/processor-specificat
 import {Observable} from 'rxjs';
 import {ProcessorSpecificationService} from '../../../shared/services/processor-specification.service';
 import {map} from 'rxjs/operators';
+import {KeyValue} from '@angular/common';
 
 @Component({
   selector: 'app-processor-chain-form',
   templateUrl: './processor-chain-form.component.html',
 })
 export class ProcessorChainFormComponent implements OnInit {
+
+  obj: Observable<ProcessorSpecification[]>;
+  Object: ObjectConstructor;
 
   timeUnits = ['MINUTES', 'SECONDS', 'MILISECONDS', 'HOURS'];
 
@@ -22,9 +26,10 @@ export class ProcessorChainFormComponent implements OnInit {
 
   adapterFormGroup: FormGroup;
   adapterArray: Observable<ProcessorSpecification[]>;
+  adapterArgumentsArray: Observable<KeyValue<string, any>>;
 
   exIntervalBool: Boolean = false;
-  executionInterval: FormGroup;
+  executionIntervalForm: FormGroup;
 
   constructor(private _formBuilder: FormBuilder,
               private processorSpecService: ProcessorSpecificationService) {
@@ -43,13 +48,16 @@ export class ProcessorChainFormComponent implements OnInit {
       filters: this.filterFormArray
     });
     this.processorArray = new FormArray([]);
-    this.executionInterval = new FormGroup({});
+    this.executionIntervalForm = new FormGroup({});
     this.processorChainForm = this._formBuilder.group({
       id: ['', Validators.required],
       processors: this.processorArray,
       executionInterval: null
     });
     this.setExecutionInterval();
+
+
+    this.obj = this.processorSpecService.getAllProcessorSpecifications();
   }
 
   filterByType(data: any, type: string) {
@@ -63,10 +71,10 @@ export class ProcessorChainFormComponent implements OnInit {
   }
 
   setExecutionInterval() {
-    this.executionInterval.addControl('period', new FormControl('', [
+    this.executionIntervalForm.addControl('period', new FormControl('', [
       Validators.min(1), Validators.max(60), Validators.pattern('[0-9]*') ]
       ));
-    this.executionInterval.addControl('unit', new FormControl());
+    this.executionIntervalForm.addControl('unit', new FormControl());
   }
 
   createProcessor() {
@@ -76,13 +84,40 @@ export class ProcessorChainFormComponent implements OnInit {
     });
   }
 
-  addProcessor() {
+  addFilter() {
     this.filterFormArray.push(this.createProcessor());
   }
 
-  deleteProcessor(index: number) {
+  removeFilter(index: number) {
     this.filterFormArray.removeAt(index);
   }
+
+  // getArgumentsFromAdapter(name: string) {
+  //   const args = new Array<KeyValue<string, string>>();
+  //   this.adapterArray.subscribe(
+  //     data => {
+  //       const o = data[index].argumentTypes;
+  //       const keys = Object.keys(o);
+  //       const values = Object.values(o);
+  //     }
+  //   );
+  // }
+  // getArgumetnsFromFilter(name: string) {
+  //
+  // }
+
+  test() {
+    this.obj.subscribe(data => {
+      for (let i = 0; i < data.length; i++) {
+        console.log('from ' + i);
+        const o = data[i].argumentTypes;
+        Object.keys(o).map(e => console.log(e));
+        Object.values(o).map(e => console.log(e));
+
+      }
+    });
+  }
+
 
   save() {
     if (this.processorChainForm.valid) {
@@ -91,10 +126,10 @@ export class ProcessorChainFormComponent implements OnInit {
         this.processorArray.push(this.filterFormArray.at(i));
       }
       if (this.exIntervalBool) {
-        if (this.executionInterval.valid) {
-          this.processorChainForm.setControl('executionInterval', this.executionInterval);
+        if (this.executionIntervalForm.valid) {
+          this.processorChainForm.setControl('executionIntervalForm', this.executionIntervalForm);
         } else {
-          console.log('ERROR: executionInterval not valid');
+          console.log('ERROR: executionIntervalForm not valid');
         }
       }
     }
