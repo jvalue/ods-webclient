@@ -46,6 +46,7 @@
     <table>
       <tr *ngFor="let spec of processorSpecifications | async">
         <td>{{spec.name}}</td>
+        <td>{{spec.argumentTypes | json}}</td>
       </tr>
     </table>
   </mat-tab>
