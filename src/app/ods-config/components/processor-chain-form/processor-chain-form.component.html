@@ -1,85 +1,124 @@
-<form [formGroup]="processorChainForm" (ngSubmit)="save()">
+<form style="padding: 20px;" [formGroup]="processorChainForm" (ngSubmit)="save()">
+  <h2>Add a new Processor Chain</h2>
+  <h3>General</h3>
   <div>
-    <mat-form-field>
+    <mat-form-field style="width: 400px;margin: 10px;">
       <input matInput placeholder="ProcessorChain ID" formControlName="id">
     </mat-form-field>
   </div>
 
-  <form [formGroup]="adapterFormGroup">
+  <h3>Configure the Adapter</h3>
+  <form *ngIf="adapterArray" [formGroup]="adapterFormGroup">
+
     <div>
-      <span>Adapter</span>
-      <mat-select placeholder="Please select an adapter" formControlName="name">
-        <mat-option *ngFor="let adapter of adapterArray | async"
-                    [value]="adapter.name">
-          {{adapter.name}}
-        </mat-option>
-      </mat-select>
+      <div>
+        <label>Adapter</label>
+      </div>
+      <div>
+        <mat-form-field style="width: 400px;margin: 10px;">
+          <mat-select placeholder="Please select an adapter" (valueChange)="updateAdapterSettings($event)"
+                      formControlName="name">
+            <mat-option *ngFor="let adapter of adapterArray" [value]="adapter.name">
+              {{adapter.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="currentAdapter" formArrayName="arguments">
+        <div *ngFor="let argument of adapterConfigOptions; let i=index">
+          <div [formGroupName]="i">
+
+            <span style="width: 150px;display:inline-block;margin: 10px;">{{argument}}</span>
+            <mat-form-field style="width: 400px;margin: 10px;">
+              <input matInput placeholder="Value" formControlName="{{argument}}"/>
+            </mat-form-field>
+
+            <span *ngIf="currentAdapter.argumentTypes[argument] + '' == 'java.lang.String'">Please enter a String</span>
+            <span *ngIf="currentAdapter.argumentTypes[argument] + '' == 'java.util.ArrayList'">Please enter json as value for ArrayLists</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </form>
 
-  <form [formGroup]="filterFormGroup">
+  <h3>Additional Filters</h3>
+  <form *ngIf="filterArray" [formGroup]="filterFormGroup">
+
     <div formArrayName="filters">
       <div *ngFor="let processor of filterFormArray.controls; let i=index">
 
         <div [formGroupName]="i">
-          <span>Filter {{i + 1}}</span>
-          <button mat-button type="button" (click)="removeFilter(i)">Delete</button>
-          <mat-select placeholder="Please select a filter" formControlName="name">
-            <mat-option *ngFor="let filter of filterArray | async"
-                        [value]="filter.name">
-              {{filter.name}}
-            </mat-option>
-          </mat-select>
-        </div>
+          <span style="width: 200px;margin: 10px;">Filter {{i + 1}}</span>
+          <mat-form-field style="width: 400px;margin: 10px;">
+            <mat-select placeholder="Please select a filter" (valueChange)="updateFilterArguments($event)"
+                        formControlName="name">
+              <mat-option *ngFor="let filter of filterArray" [value]="filter.name">
+                {{filter.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
+          <button mat-raised-button type="button" color="warn" (click)="removeFilter(i)">Delete</button>
+
+          <div *ngIf="currentFilter" formArrayName="arguments">
+            <div *ngFor="let argument of filterConfigOptions; let k=index">
+              <div [formGroupName]="k">
+
+                <span style="width: 150px;display:inline-block;margin: 10px;">{{argument}}</span>
+                <mat-form-field style="width: 400px;margin: 10px;">
+                  <input matInput placeholder="Value" formControlName="{{argument}}"/>
+                </mat-form-field>
+
+                <span *ngIf="currentFilter.argumentTypes[argument] + '' == 'java.lang.String'">Please enter a String</span>
+                <span *ngIf="currentFilter.argumentTypes[argument] + '' == 'java.util.ArrayList'">Please enter json as value for ArrayLists</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
+
     </div>
   </form>
 
   <div>
-    <button mat-button type="button" (click)="addFilter()">
+    <button mat-raised-button type="button" color="primary" (click)="addFilter()">
       Add filter+
     </button>
   </div>
 
   <div>
-    <input type="checkbox" mat-checkbox [checked]="exIntervalBool" (change)="exIntervalBool = !exIntervalBool"
-           label="Add ExecutionInterval"/>
+    <div style="margin: 10px 0;">
+      <mat-checkbox [checked]="exIntervalBool" (change)="exIntervalBool = !exIntervalBool">Add ExecutionInterval
+      </mat-checkbox>
+    </div>
     <div *ngIf="exIntervalBool">
       <div>
-        <form formGroupName="executionIntervalForm">
-        <input type="number" matInput placeholder="Please put in a value between 1 and 60" formControlName="period">
-        <div *ngIf="executionIntervalForm.invalid" >
-          <span>
-            ! Value not between 1 and 60 !
-          </span>
-        </div>
-        <mat-select placeholder="Please select a TimeUnit" formControlName="unit">
-          <mat-option *ngFor="let unit of timeUnits">
-            {{unit}}
-          </mat-option>
-        </mat-select>
+        <form [formGroup]="executionIntervalForm">
+          <mat-form-field style="width: 400px;margin: 10px;">
+            <input type="number" matInput placeholder="Please put in a value between 1 and 60"
+                   formControlName="period">
+          </mat-form-field>
+          <div *ngIf="executionIntervalForm.invalid">
+            <span color="warn">Value not between 1 and 60</span>
+          </div>
+          <mat-form-field style="width: 400px;margin: 10px;">
+            <mat-select placeholder="Please select a TimeUnit" formControlName="unit">
+              <mat-option *ngFor="let unit of timeUnits" [value]="unit">
+                {{unit}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </form>
       </div>
     </div>
   </div>
 
   <div>
-    <button type="submit" [disabled]="!processorChainForm.valid">Submit</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!processorChainForm.valid">Submit</button>
   </div>
 </form>
-
-
-<div *ngFor="let adapter of adapterArray | async">
-  {{adapter.argumentTypes | json}}
-</div>
-
-<div *ngFor="let adapter of filterArray | async">
-  {{adapter.argumentTypes | json}}
-</div>
-
-<div>
-  <button (click)="test()">test</button>
-</div>
 
 
