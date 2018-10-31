@@ -1,0 +1,93 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// **Be sure that you only ever include this mixin once!**
+@include mat-core();
+
+
+// Generated with: http://mcg.mbitson.com/#!?mcgpalette0=%23003366
+$mat-fau-blue: (
+  50: #E0E7ED,
+  100: #B3C2D1,
+  200: #8099B3,
+  300: #4D7094,
+  400: #26527D,
+  500: #003366,
+  600: #002E5E,
+  700: #002753,
+  800: #002049,
+  900: #001438,
+  A100: #6E93FF,
+  A200: #3B6CFF,
+  A400: #0846FF,
+  A700: #003BEE,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: white,
+    400: white,
+    500: $white-87-opacity,
+    600: $white-87-opacity,
+    700: $white-87-opacity,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: white,
+    A400: white,
+    A700: $white-87-opacity,
+  )
+);
+
+
+// FAU Primary color
+$fau-app-primary: mat-palette($mat-fau-blue);
+
+// Secondary color for technische fakultät is grey
+$fau-app-accent:  mat-palette($mat-grey, A200, A100, A400);
+
+$fau-app-theme:   mat-light-theme($fau-app-primary, $fau-app-accent);
+
+// Include the default theme styles.
+@include angular-material-theme($fau-app-theme);
+
+
+// Define an alternate dark theme.
+$dark-primary: mat-palette($mat-blue-grey);
+$dark-accent:  mat-palette($mat-amber, A200, A100, A400);
+$dark-warn:    mat-palette($mat-deep-orange);
+$dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+// Include the alternative theme styles inside of a block with a CSS class. You can make this
+// CSS class whatever you want. In this example, any component inside of an element with
+// `.unicorn-dark-theme` will be affected by this alternate dark theme instead of the default theme.
+.unicorn-dark-theme {
+  @include angular-material-theme($dark-theme);
+}
+
+html, body {
+  /* Always fill the whole window */
+  height: 100%;
+  width: 100%;
+
+  /* Reset the margin and padding */
+  margin: 0;
+  padding: 0;
+}
+
+.full-width {
+  width: 100%;
+}
+
+
+// Fix missaligen expandsion panel texts
+mat-expansion-panel-header .mat-content{
+  align-items: center;
+}
+
+mat-card-title {
+  font-size: 1.5em !important;
+  font-weight: bolder;
+}
