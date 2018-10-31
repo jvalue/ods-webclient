@@ -15,6 +15,12 @@ import {DataView} from '../../../shared/model/data-view';
 @Component({
   selector: 'app-data-source-detail',
   templateUrl: './data-source-detail.component.html',
+  styles: ['.mat-expansion-panel-header-description{ ' +
+  'width: 200px;' +
+  '}' +
+  '.mat-expansion-panel-header-title {' +
+  'max-width: 300px;' +
+  '}']
 })
 export class DataSourceDetailComponent implements OnInit {
 
