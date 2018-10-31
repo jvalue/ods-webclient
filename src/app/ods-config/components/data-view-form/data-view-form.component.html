@@ -1,0 +1,40 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Add a data view
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="dataViewForm" (ngSubmit)="submit()">
+
+      <div>
+        <label>View id</label>
+        <mat-form-field style="width: 400px;margin: 10px;">
+          <input matInput placeholder="Please put in a data-view id" formControlName="id">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <label>Please put in a mapFunction</label>
+        <mat-form-field style="width: 400px;margin: 10px;">
+          <input matInput placeholder="Please put in a data-view id" formControlName="mapFunction">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <label>Please put in a reduceFunction</label>
+        <mat-form-field style="width: 400px;margin: 10px;">
+          <input matInput placeholder="Please put in a data-view id" formControlName="reduceFunction">
+        </mat-form-field>
+      </div>
+
+
+      <div>
+        <button type="submit" mat-button>Submit</button>
+      </div>
+
+
+    </form>
+  </mat-card-content>
+</mat-card>

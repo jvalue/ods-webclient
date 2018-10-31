@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 export class DataView {
   id: string;
-  mapFunction: any;
-  reduceFunction: any;
+  mapFunction: string;
+  reduceFunction: string;
   constructor () {}
 }

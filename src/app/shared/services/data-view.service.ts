@@ -22,8 +22,12 @@ export class DataViewService {
     return this.service.get('/datasources/' + sourceId + '/views/' + viewId);
   }
 
-  addView(sourceId: string, viewId: string, view: DataView) {
-    return this.service.put('/datasources/' + sourceId + '/views/' + viewId, view);
+  addView(sourceId: string, body: DataView) {
+    const viewId = body.id;
+    const data = body.mapFunction;
+    Object.assign(data, body.reduceFunction);
+    console.log(JSON.stringify(data));
+    return this.service.put('/datasources/' + sourceId + '/views/' + viewId, JSON.stringify(data));
   }
 
   deleteView(sourceId: string, viewId: string) {
