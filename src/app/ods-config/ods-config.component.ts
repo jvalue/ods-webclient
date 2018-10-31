@@ -4,8 +4,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 import {Component, OnInit} from '@angular/core';
 import {DataSourceService} from '../shared/services/data-source.service';
-import {Observable} from 'rxjs';
 import {DataSource} from '../shared/model/data-source';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-ods-config',
@@ -14,13 +14,16 @@ import {DataSource} from '../shared/model/data-source';
 })
 export class OdsConfigComponent implements OnInit {
 
-  public datasources: Observable<DataSource[]>;
+  public dataSourceDataSource: MatTableDataSource<DataSource>;
+
 
   constructor(private dataSourceService: DataSourceService) {
   }
 
   ngOnInit() {
-    this.datasources = this.dataSourceService.getDataSource();
+    this.dataSourceService.getDataSource().subscribe(value => {
+      this.dataSourceDataSource = new MatTableDataSource(value);
+    });
   }
 
   deleteDatasource(sourceId: string) {
