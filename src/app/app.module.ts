@@ -9,9 +9,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
-import {MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule,
+import {
+  MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule,
   MatCardModule, MatTabsModule, MatStepperModule, MatFormFieldModule, MatInputModule, MatExpansionModule,
-  MatSelectModule, MatCheckboxModule} from '@angular/material';
+  MatSelectModule, MatCheckboxModule, MatTableModule, MatChipsModule
+} from '@angular/material';
 import { OdsConfigComponent } from './ods-config/ods-config.component';
 import { SettingsComponent } from './settings/settings.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -51,7 +53,9 @@ import { ProcessorChainFormComponent } from './ods-config/components/processor-c
     MatInputModule,
     MatExpansionModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTableModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
