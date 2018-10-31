@@ -17,4 +17,19 @@ export class NotificationService {
   getAllClients(sourceId: string): Observable<NotificationClient[]> {
     return this.service.get('/datasources/' + sourceId + '/notifications');
   }
+
+  addNewClient(sourceId: string, body: NotificationClient) {
+    const clientId = body.clientId;
+    const data = {
+      'clientId': body.clientId,
+      'type': body.type,
+    };
+    Object.assign(data, body.typeArguments);
+    console.log(JSON.stringify(data));
+    return this.service.put('/datasources/' + sourceId + '/notifications/' + clientId, JSON.stringify(data));
+  }
+
+  deleteClient(sourceId: string, clientId: string) {
+    return this.service.delete('/datasources/' + sourceId + '/notifications/' + clientId);
+  }
 }

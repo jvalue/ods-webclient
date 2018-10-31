@@ -4,7 +4,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 */
 
 export class NotificationClient {
-  id: string;
+  clientId: string;
   type: string;
+  typeArguments: {[k: string]: any}
   constructor () {}
 }
