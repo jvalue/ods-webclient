@@ -59,7 +59,7 @@
             <div [formGroupName]="i">
               <span style="width: 200px;margin: 10px;">Filter {{i + 1}}</span>
               <mat-form-field style="width: 400px;margin: 10px;">
-                <mat-select placeholder="Please select a filter" (valueChange)="updateFilterArguments($event)"
+                <mat-select placeholder="Please select a filter" (valueChange)="updateFilterArguments($event, i)"
                             formControlName="name">
                   <mat-option *ngFor="let filter of filterArray" [value]="filter.name">
                     {{filter.name}}
@@ -69,8 +69,8 @@
 
               <button mat-raised-button type="button" color="warn" (click)="removeFilter(i)">Delete</button>
 
-              <div *ngIf="currentFilter" formArrayName="arguments">
-                <div *ngFor="let argument of filterConfigOptions; let k=index">
+              <div *ngIf="currentFilterArray[i]" formArrayName="arguments">
+                <div *ngFor="let argument of filterConfigOptionsArray[i]; let k=index">
                   <div [formGroupName]="k">
 
                     <span style="width: 150px;display:inline-block;margin: 10px;">{{argument}}</span>
@@ -78,15 +78,15 @@
                       <input matInput placeholder="Value" formControlName="{{argument}}"/>
                     </mat-form-field>
 
-                    <span *ngIf="currentFilter.argumentTypes[argument] + '' == 'java.lang.String'">Please enter a String</span>
-                    <span *ngIf="currentFilter.argumentTypes[argument] + '' == 'java.util.ArrayList'">Please enter json as value for ArrayLists</span>
+                    <span *ngIf="currentFilterArray[i].argumentTypes[argument] + '' == 'java.lang.String'">Please enter a String</span>
+                    <span *ngIf="currentFilterArray[i].argumentTypes[argument] + '' == 'java.util.ArrayList'">Please enter json as value for ArrayLists</span>
                   </div>
                 </div>
               </div>
 
             </div>
-          </div>
 
+          </div>
         </div>
       </form>
 
