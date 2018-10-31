@@ -63,4 +63,8 @@ export class DataSourceDetailComponent implements OnInit {
     this.dataViewService.deleteView(this.id, viewId).subscribe();
   }
 
+  deleteNotificationClient(clientId: string) {
+    this.notificationsService.deleteClient(this.id, clientId).subscribe();
+  }
+
 }

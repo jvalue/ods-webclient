@@ -98,7 +98,10 @@
               DataViews
             </mat-panel-title>
             <mat-panel-description>
-              <button mat-button><mat-icon>add</mat-icon> DataView</button>
+              <button mat-button
+                      [routerLink]="['/odsConfig/datasources', (dataSource |async)?.id, 'newDataView']">
+                <mat-icon>add</mat-icon> DataView
+              </button>
             </mat-panel-description>
           </mat-expansion-panel-header>
           <table>
@@ -133,15 +136,21 @@
               Notifications
             </mat-panel-title>
             <mat-panel-description>
-              <button mat-button><mat-icon>add</mat-icon> Notification</button>
+              <button mat-button
+                      [routerLink]="['/odsConfig/datasources', (dataSource |async)?.id, 'newNotificationClient']">
+                <mat-icon>add</mat-icon> NotificationClient
+              </button>
             </mat-panel-description>
           </mat-expansion-panel-header>
           <table>
             <th>ID</th>
             <th>Type</th>
             <tr *ngFor="let client of notificationClients | async">
-              <td>{{client.id}}</td>
+              <td>{{client.clientId}}</td>
               <td>{{client.type}}</td>
+              <td>
+                <button mat-button (click)="deleteNotificationClient(client.clientId)">Delete</button>
+              </td>
             </tr>
           </table>
         </mat-expansion-panel>
@@ -152,17 +161,11 @@
             <mat-panel-title>
               Plugins
             </mat-panel-title>
-            <mat-panel-description>
-              <button mat-button><mat-icon>add</mat-icon> Plugin</button>
-            </mat-panel-description>
           </mat-expansion-panel-header>
           <table>
             <th>ID</th>
             <tr *ngFor="let plugin  of plugins | async">
               <td>{{plugin.id}}</td>
-              <td>
-                <button mat-button>Delete</button>
-              </td>
             </tr>
           </table>
         </mat-expansion-panel>
