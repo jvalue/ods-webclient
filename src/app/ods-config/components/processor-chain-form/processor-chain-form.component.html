@@ -41,8 +41,10 @@
                   <input matInput placeholder="Value" formControlName="{{argument}}"/>
                 </mat-form-field>
 
-                <span *ngIf="currentAdapter.argumentTypes[argument] + '' == 'java.lang.String'">Please enter a String</span>
-                <span *ngIf="currentAdapter.argumentTypes[argument] + '' == 'java.util.ArrayList'">Please enter json as value for ArrayLists</span>
+                <span *ngIf="currentAdapter.argumentTypes[argument] + ''
+                             == 'java.lang.String'">Please enter a String</span>
+                <span *ngIf="currentAdapter.argumentTypes[argument] + ''
+                             == 'java.util.ArrayList'">Please enter json as value for ArrayLists</span>
               </div>
             </div>
           </div>

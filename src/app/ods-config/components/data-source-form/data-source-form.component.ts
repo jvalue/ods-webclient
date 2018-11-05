@@ -6,6 +6,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DataSource} from '../../../shared/model/data-source';
 import {DataSourceService} from '../../../shared/services/data-source.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-data-source-form',
@@ -17,7 +18,8 @@ export class DataSourceFormComponent implements OnInit {
   metaDataForm: FormGroup;
   schemaForm: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder,
+  constructor(private router: Router,
+              private _formBuilder: FormBuilder,
               private service: DataSourceService
   ) {
   }
@@ -27,7 +29,7 @@ export class DataSourceFormComponent implements OnInit {
     this.schemaForm = this.createSchemaForm();
   }
 
-  createMetaDataForm()  {
+  createMetaDataForm() {
     return this._formBuilder.group({
       id: ['', Validators.required],
       domainIdKey: [''],
@@ -59,7 +61,15 @@ export class DataSourceFormComponent implements OnInit {
     if (this.schemaForm.valid) {
       this.dataSource.schema = this.schemaForm.getRawValue();
     }
-    this.service.addDataSource(this.dataSource).subscribe();
+    this.service.addDataSource(this.dataSource).subscribe(
+      isSuccess => {
+        this.router.navigate(['odsConfig/datasources/', this.dataSource.id, 'details']).then(err => {
+          console.log(err);
+        });
+        console.log(isSuccess);
+      }
+    );
+
   }
 }
 

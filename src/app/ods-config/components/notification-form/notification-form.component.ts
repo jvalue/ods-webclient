@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NotificationService} from '../../../shared/services/notification.service';
 import {NotificationClient} from '../../../shared/model/notification-client';
@@ -23,6 +23,7 @@ export class NotificationFormComponent implements OnInit {
   notificationForm: FormGroup;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private _formBuilder: FormBuilder,
               private notificationService: NotificationService) {
   }
@@ -30,12 +31,12 @@ export class NotificationFormComponent implements OnInit {
   ngOnInit() {
     this.sourceId = this.route.snapshot.params['sourceId'];
     this.notificationForm = this._formBuilder.group({
-      clientId: ['', Validators.required],
+      id: ['', Validators.required],
       type: this.currentType,
       typeArguments: new FormGroup({})
     });
     this.httpForm = this._formBuilder.group({
-      callBackUrl: [''],
+      callbackUrl: [''],
       sendData: [true]
     });
     this.gcmForm = this._formBuilder.group({
@@ -82,7 +83,11 @@ export class NotificationFormComponent implements OnInit {
   submit() {
     this.notificationForm.controls['typeArguments'] = this.currentNotificationArguments;
     this.notificationClient = this.notificationForm.getRawValue();
-    this.notificationService.addNewClient(this.sourceId, this.notificationClient);
+    this.notificationService.addNewClient(this.sourceId, this.notificationClient).subscribe();
+
+    this.router.navigate(['odsConfig/datasources/', this.sourceId, 'details']).then(err => {
+      console.log(err);
+    });
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DataViewService} from '../../../shared/services/data-view.service';
 import {DataView} from '../../../shared/model/data-view';
@@ -16,6 +16,7 @@ export class DataViewFormComponent implements OnInit {
   dataViewForm: FormGroup;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private _formBuilder: FormBuilder,
               private dataViewService: DataViewService ) { }
 
@@ -30,7 +31,11 @@ export class DataViewFormComponent implements OnInit {
 
   submit() {
     this.dataView = this.dataViewForm.getRawValue();
-    this.dataViewService.addView(this.sourceId, this.dataView);
+    this.dataViewService.addView(this.sourceId, this.dataView).subscribe();
+
+    this.router.navigate(['odsConfig/datasources/', this.sourceId, 'details']).then(err => {
+      console.log(err);
+    });
   }
 
 }

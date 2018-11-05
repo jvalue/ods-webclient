@@ -6,7 +6,7 @@ import {map} from 'rxjs/operators';
 import {isNullOrUndefined} from 'util';
 import {ProcessorChainService} from '../../../shared/services/processor-chain.service';
 import {ProcessorChain} from '../../../shared/model/processor-chain';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-processor-chain-form',
@@ -42,7 +42,8 @@ export class ProcessorChainFormComponent implements OnInit {
   sourceId: string;
 
 
-  constructor(private _formBuilder: FormBuilder,
+  constructor(private router: Router,
+              private _formBuilder: FormBuilder,
               private processorSpecService: ProcessorSpecificationService,
               private processorChainService: ProcessorChainService,
               private route: ActivatedRoute) {
@@ -214,6 +215,10 @@ export class ProcessorChainFormComponent implements OnInit {
     }
     this.processorChain = this.processorChainForm.getRawValue();
     this.processorChainService.addProcessorChain(this.sourceId, this.processorChain).subscribe();
+
+    this.router.navigate(['odsConfig/datasources/', this.sourceId, 'details']).then(err => {
+      console.log(err);
+    });
   }
 
 
