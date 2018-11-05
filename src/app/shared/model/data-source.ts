@@ -18,9 +18,5 @@ export class DataSource {
     termsOfUse: String,
   };
 
-  constructor (
-    ) {}
-
-
-
+  constructor () {}
 }
