@@ -56,15 +56,30 @@ export class DataSourceDetailComponent implements OnInit {
   }
 
   deleteProcessorChain(chainId: string) {
-    this.processorChainService.deleteProcessorChain(this.id, chainId).subscribe();
+    this.processorChainService.deleteProcessorChain(this.id, chainId).subscribe(
+      isSuccess => {
+        this.processorChains = this.processorChainService.getAllProcessorChains(this.id);
+        console.log(isSuccess);
+      }
+    );
   }
 
   deleteDataView(viewId: string) {
-    this.dataViewService.deleteView(this.id, viewId).subscribe();
+    this.dataViewService.deleteView(this.id, viewId).subscribe(
+      isSuccess => {
+        this.views = this.dataViewService.getAllViews(this.id);
+        console.log(isSuccess);
+      }
+    );
   }
 
   deleteNotificationClient(clientId: string) {
-    this.notificationsService.deleteClient(this.id, clientId).subscribe();
+    this.notificationsService.deleteClient(this.id, clientId).subscribe(
+      isSuccess => {
+        this.notificationClients = this.notificationsService.getAllClients(this.id);
+        console.log(isSuccess);
+      }
+    );
   }
 
 }

@@ -146,10 +146,10 @@
             <th>ID</th>
             <th>Type</th>
             <tr *ngFor="let client of notificationClients | async">
-              <td>{{client.clientId}}</td>
+              <td>{{client.id}}</td>
               <td>{{client.type}}</td>
               <td>
-                <button mat-button (click)="deleteNotificationClient(client.clientId)">Delete</button>
+                <button mat-button (click)="deleteNotificationClient(client.id)">Delete</button>
               </td>
             </tr>
           </table>
