@@ -19,13 +19,11 @@ export class NotificationService {
   }
 
   addNewClient(sourceId: string, body: NotificationClient) {
-    const clientId = body.clientId;
+    const clientId = body.id;
     const data = {
-      'clientId': body.clientId,
       'type': body.type,
     };
     Object.assign(data, body.typeArguments);
-    console.log(JSON.stringify(data));
     return this.service.put('/datasources/' + sourceId + '/notifications/' + clientId, JSON.stringify(data));
   }
 

@@ -30,11 +30,12 @@ export class DataSourceService {
 
   addDataSource(body: DataSource) {
     const sourceId = body.id;
-    // TODO write function to stringify else schema-property with id as name is filtered out
-    const data = JSON.stringify(body,
-      ['domainIdKey', 'schema', 'metaData', 'name',
-        'title', 'author', 'authorEmail', 'url', 'notes', 'termsOfUse']);
-    return this.service.put(this.dataSourceUrl + '/' + sourceId, data);
+    const data = {
+      'domainIdKey' : body.domainIdKey,
+      'metaData' : body.metaData,
+      'schema': body.schema
+    };
+    return this.service.put(this.dataSourceUrl + '/' + sourceId, JSON.stringify(data));
   }
 
   deleteDataSource(sourceId: String) {
