@@ -25,16 +25,15 @@ export class SettingsComponent implements OnInit {
 
   createConfigForm() {
     return this._formBuilder.group({
-      rootUrl: [this.service.getRootUrl()]
+      rootUrl: [this.service.getEndpointUrl()]
     });
   }
 
-  setRootUrl(url: string) {
-    this.service.setRootUrl(url);
+  setEndpointUrl(url: string) {
+    this.service.setEndpointUrl(url);
   }
 
   save(form: FormGroup) {
-    console.log(form.getRawValue());
-    this.setRootUrl(form.getRawValue());
+    this.setEndpointUrl(form.getRawValue());
   }
 }

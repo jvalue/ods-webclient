@@ -32,6 +32,10 @@ export class BasicRestService {
 
   }
 
+  setEndpointUrl(url: string) {
+    this.endpointUrl = url;
+  }
+
   appendAuthorizationToHeaderParams(name: string, password: string) {
     this.headerParams.Authorization = String('Basic ' + btoa(name + ':' + password));
   }
