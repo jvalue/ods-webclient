@@ -21,4 +21,12 @@ export class ConfigService {
     return this.service.endpointUrl;
   }
 
+  login(useremail: string, password: string) {
+    this.service.updateLoginInformation(useremail, password);
+  }
+
+  getUseremail() {
+    return this.service.getUseremail();
+  }
+
 }

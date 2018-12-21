@@ -14,6 +14,10 @@ export class BasicRestService {
 
   endpointUrl: String = 'http://localhost:8080/ods/api/v1';
 
+  /* Default useremail and password*/
+  private useremail = 'admin@adminland.com';
+  private password = 'admin123';
+
   headerParams = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -25,15 +29,27 @@ export class BasicRestService {
   };
 
   constructor(private http: HttpClient) {
-    this.appendAuthorizationToHeaderParams('admin@adminland.com', 'admin123');
+    // this.updateLoginInformation(this.useremail, this.password);
+    this.appendAuthorizationToHeaderParams(this.useremail, this.password);
+    const newHeaders = new HttpHeaders(this.headerParams);
     this.requestOptions = {
-      headers: new HttpHeaders(this.headerParams)
+      headers: newHeaders
     };
-
   }
 
   setEndpointUrl(url: string) {
     this.endpointUrl = url;
+  }
+
+  getUseremail() {
+    return this.useremail;
+  }
+
+  updateLoginInformation(useremail: string, password: string) {
+    this.useremail = useremail;
+    this.password = password;
+    this.appendAuthorizationToHeaderParams(useremail, password);
+    this.requestOptions.headers = new HttpHeaders(this.headerParams);
   }
 
   appendAuthorizationToHeaderParams(name: string, password: string) {
