@@ -14,32 +14,40 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class ProcessorChainFormComponent implements OnInit {
 
+  /*execution Interval */
   timeUnits = ['MINUTES', 'SECONDS', 'MILLISECONDS', 'HOURS'];
+  exIntervalBool: Boolean = true;
+  executionIntervalForm: FormGroup;
 
+  /*Name of ProcessorChain*/
+  sourceId: string;
+  currentFilterNumber = 0;
+
+  /*Basic ProcessorChain*/
   processorChain: ProcessorChain;
   processorChainForm: FormGroup;
   processorArray: FormArray;
 
-  filterFormGroup: FormGroup;
-  filterFormArray: FormArray;
-  filterArray: ProcessorSpecification[] = [];
-  currentFilter: any;
-  currentFilterArray: ProcessorSpecification[] = [];
-  filterConfigOptions: string[];
-  filterConfigOptionsArray: string[][] = [];
-  filterConfigFormArray: FormArray;
-  filterFormArrayForConfigFormArrays: FormArray;
-
-  adapterFormGroup: FormGroup;
-  adapterArray: ProcessorSpecification[] = [];
+  /*Adapter as first processor in ProcessorChain*/
+  adapterSpecArray: ProcessorSpecification[] = [];
   currentAdapter: any;
+  adapterFormGroup: FormGroup;
   adapterConfigFormArray: FormArray;
   adapterConfigOptions: string[];
 
-  exIntervalBool: Boolean = false;
-  executionIntervalForm: FormGroup;
+  /*Filter as processor array*/
+  filterSpecArray: ProcessorSpecification[] = [];
+  currentFilterArray: ProcessorSpecification[] = [];
+  filterFormGroup: FormGroup;
+  filterFormArray: FormArray;
 
-  sourceId: string;
+  /*Placeholder for FilterConfigForms*/
+  filterConfigFormArray: FormArray[] = new Array();
+  filterConfigOptions: string[];
+
+  /*saves all FilterConfigForms */
+  filterFormArrayForConfigFormArrays: FormArray;
+  filterConfigOptionsArray: string[][] = [];
 
 
   constructor(private router: Router,
@@ -52,22 +60,23 @@ export class ProcessorChainFormComponent implements OnInit {
   ngOnInit() {
     this.sourceId = this.route.snapshot.params['sourceId'];
 
+    /*Filter Specifications into Arrays*/
     this.processorSpecService.getAllProcessorSpecifications().pipe(map(
       data => this.filterByType(data, 'FILTER')
     )).subscribe(value => {
-      this.filterArray = value;
+      this.filterSpecArray = value;
     });
 
     this.processorSpecService.getAllProcessorSpecifications().pipe(map(
       data => this.filterByType(data, 'SOURCE_ADAPTER')
     )).subscribe(value => {
-      this.adapterArray = value;
+      this.adapterSpecArray = value;
     });
 
     this.adapterConfigFormArray = this._formBuilder.array([]);
     this.adapterFormGroup = this.createAdapter();
 
-    this.filterConfigFormArray = this._formBuilder.array([]);
+    // this.filterConfigFormArray[0] = this._formBuilder.array([]);
     this.filterFormArrayForConfigFormArrays = this._formBuilder.array([]);
     this.filterFormArray = this._formBuilder.array([this.createFilter()]);
     this.filterFormGroup = this._formBuilder.group({
@@ -95,6 +104,8 @@ export class ProcessorChainFormComponent implements OnInit {
     return arr;
   }
 
+
+  /*EXECUTION INTERVAL*/
   setExecutionInterval() {
     this.executionIntervalForm.addControl('period', new FormControl('1', [
       Validators.min(1), Validators.max(60), Validators.pattern('[0-9]*')]
@@ -110,48 +121,55 @@ export class ProcessorChainFormComponent implements OnInit {
   }
 
   createFilter() {
-    return this._formBuilder.group({
+    this.filterConfigFormArray.push(this._formBuilder.array([]));
+    const newFilter =  this._formBuilder.group({
       name: [''],
-      arguments: this.filterConfigFormArray,
+      arguments: this.filterConfigFormArray[this.currentFilterNumber]
     });
+    /*Increment currentFilterNumber after creating a filterConfigFormArray*/
+    this.currentFilterNumber++;
+    return newFilter;
   }
 
   addFilter() {
+    /*create empty filter*/
     this.filterFormArray.push(this.createFilter());
     this.currentFilterArray.push(new ProcessorSpecification);
     this.filterConfigOptionsArray.push(this.filterConfigOptions);
   }
 
   removeFilter(index: number) {
+    this.currentFilterNumber--;
     this.filterFormArray.removeAt(index);
-    // while (this.filterFormArrayForConfigFormArrays[index].length > 0) {
-    //   this.filterFormArrayForConfigFormArrays.removeAt(index);
-    // }
 
+    /*Remove filter from Arrays*/
     const newFilterArray: ProcessorSpecification[] = [];
     const newFilterConfigOptionsArray: string[][] = [];
+    const newFilterConfigFormArray = [];
     let i = 0;
     for (const filter of this.currentFilterArray) {
       if (i !== index ) {
         newFilterArray.push(filter);
         newFilterConfigOptionsArray.push(this.filterConfigOptionsArray[i]);
+        newFilterConfigFormArray[index] = this.filterConfigFormArray[index];
       }
       i++;
     }
     this.currentFilterArray = newFilterArray;
     this.filterConfigOptionsArray = newFilterConfigOptionsArray;
+    this.filterConfigFormArray = newFilterConfigFormArray;
   }
 
   updateAdapterSettings(adapterName: string) {
 
     let adapter = null;
-    for (const adap of this.adapterArray) {
+    for (const adap of this.adapterSpecArray) {
       if (adap['name'] === adapterName) {
         adapter = adap;
       }
     }
     if (isNullOrUndefined(adapter)) {
-      throw Error('Failed to locate the adapter in the adapterArray.');
+      throw Error('Failed to locate the adapter in the adapterSpecArray.');
     }
 
     this.currentAdapter = adapter;
@@ -171,38 +189,34 @@ export class ProcessorChainFormComponent implements OnInit {
 
   updateFilterArguments(filterName: string, index: number) {
     let filter = null;
-    for (const filt of this.filterArray) {
+    for (const filt of this.filterSpecArray) {
       if (filt['name'] === filterName) {
         filter = filt;
       }
     }
     if (isNullOrUndefined(filter)) {
-      throw Error('Failed to locate the filter in the filterArray.');
+      throw Error('Failed to locate the filter in the filterSpecArray.');
     }
-    // this.currentFilter = filter;
+
     this.currentFilterArray[index] = filter;
-
     this.filterConfigOptionsArray[index] = Object.keys(filter.argumentTypes);
-    console.log(this.filterConfigOptionsArray[index]);
 
-    while (this.filterConfigFormArray.length > 0) {
-      this.filterConfigFormArray.removeAt(0);
+    /*Clears filter Config Form at index*/
+    while (this.filterConfigFormArray[index].length > 0) {
+      this.filterConfigFormArray[index].removeAt(0);
     }
 
     for (const type of this.filterConfigOptionsArray[index]) {
       const formOptions: any = {};
       formOptions[type] = [''];
-      this.filterConfigFormArray.push(this._formBuilder.group(formOptions));
+      this.filterConfigFormArray[index].push(this._formBuilder.group(formOptions));
     }
-    this.filterFormArrayForConfigFormArrays.push(this.filterConfigFormArray);
   }
 
   save() {
     if (this.processorChainForm.valid) {
       this.processorArray.push(this.adapterFormGroup);
       for (let i = 0; i < this.filterFormArray.length; i++) {
-        // this.filterFormArray.at(i)['arguments']
-        // console.log(this.filterFormArrayForConfigFormArrays.at(i)[0]);
         this.processorArray.push(this.filterFormArray.at(i));
       }
       if (this.exIntervalBool) {

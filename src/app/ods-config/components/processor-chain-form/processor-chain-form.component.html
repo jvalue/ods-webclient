@@ -15,7 +15,7 @@
       </div>
 
       <h3>Configure the Adapter</h3>
-      <form *ngIf="adapterArray" [formGroup]="adapterFormGroup">
+      <form *ngIf="adapterSpecArray" [formGroup]="adapterFormGroup">
 
         <div>
           <div>
@@ -25,7 +25,7 @@
             <mat-form-field style="width: 400px;margin: 10px;">
               <mat-select placeholder="Please select an adapter" (valueChange)="updateAdapterSettings($event)"
                           formControlName="name">
-                <mat-option *ngFor="let adapter of adapterArray" [value]="adapter.name">
+                <mat-option *ngFor="let adapter of adapterSpecArray" [value]="adapter.name">
                   {{adapter.name}}
                 </mat-option>
               </mat-select>
@@ -53,7 +53,7 @@
       </form>
 
       <h3>Additional Filters</h3>
-      <form *ngIf="filterArray" [formGroup]="filterFormGroup">
+      <form *ngIf="filterSpecArray" [formGroup]="filterFormGroup">
 
         <div formArrayName="filters">
           <div *ngFor="let processor of filterFormArray.controls; let i=index">
@@ -63,7 +63,7 @@
               <mat-form-field style="width: 400px;margin: 10px;">
                 <mat-select placeholder="Please select a filter" (valueChange)="updateFilterArguments($event, i)"
                             formControlName="name">
-                  <mat-option *ngFor="let filter of filterArray" [value]="filter.name">
+                  <mat-option *ngFor="let filter of filterSpecArray" [value]="filter.name">
                     {{filter.name}}
                   </mat-option>
                 </mat-select>
@@ -72,8 +72,10 @@
               <button mat-raised-button type="button" color="warn" (click)="removeFilter(i)">Delete</button>
 
               <div *ngIf="currentFilterArray[i]" formArrayName="arguments">
-                <div *ngFor="let argument of filterConfigOptionsArray[i]; let k=index">
-                  <div [formGroupName]="k">
+                <!--filter has no arguments if filterConfigOptionsArray[i].length = 0-->
+                <div *ngIf="filterConfigOptionsArray[i]?.length > 0">
+                  <div *ngFor="let argument of filterConfigOptionsArray[i]; let k=index">
+                    <div [formGroupName]="k">
 
                     <span style="width: 150px;display:inline-block;margin: 10px;">{{argument}}</span>
                     <mat-form-field style="width: 400px;margin: 10px;">
@@ -82,6 +84,7 @@
 
                     <span *ngIf="currentFilterArray[i].argumentTypes[argument] + '' == 'java.lang.String'">Please enter a String</span>
                     <span *ngIf="currentFilterArray[i].argumentTypes[argument] + '' == 'java.util.ArrayList'">Please enter json as value for ArrayLists</span>
+                    </div>
                   </div>
                 </div>
               </div>
