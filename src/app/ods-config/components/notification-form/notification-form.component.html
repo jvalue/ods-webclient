@@ -1,0 +1,93 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Add a notification client
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="notificationForm" (ngSubmit)="submit()">
+
+      <div>
+        <label>Client id</label>
+        <mat-form-field style="width: 400px;margin: 10px;">
+          <input matInput placeholder="Please put in a clientId" formControlName="id">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <label>Notification type</label>
+        <mat-form-field style="width: 400px;margin: 10px;">
+          <mat-select placeholder="Please select a client type" formControlName="type" (valueChange)="update($event)">
+            <mat-option *ngFor="let element of clientTypes" [value]="element">
+              {{element}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <div *ngIf="currentType === 'HTTP'">
+          <label>Please fill out the http client fields</label>
+          <form [formGroup]="httpForm">
+            <div>
+              <label>Callback url</label>
+              <mat-form-field style="width: 400px;margin: 10px;">
+                <input matInput placeholder="Please put in a callbackUrl" formControlName="callbackUrl">
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-checkbox formControlName="sendData">Option to send Data</mat-checkbox>
+            </div>
+          </form>
+        </div>
+
+        <div *ngIf="currentType === 'GCM'">
+
+          <label>Please fill out the gcm client fields</label>
+          <form [formGroup]="gcmForm">
+            <div>
+              <label>Gcm client Id</label>
+              <mat-form-field style="width: 400px;margin: 10px;">
+                <input matInput placeholder="Please put in a gcmClientId" formControlName="gcmClientId">
+              </mat-form-field>
+            </div>
+          </form>
+        </div>
+
+        <div *ngIf="currentType === 'AMQP'">
+
+          <label>Please fill out the amqp client fields</label>
+          <form [formGroup]="amqpForm">
+            <div>
+              <label>Exchange</label>
+              <mat-form-field style="width: 400px;margin: 10px;">
+                <input matInput placeholder="Please put in an exchange value" formControlName="exchange">
+              </mat-form-field>
+            </div>
+            <div>
+              <label>Host</label>
+              <mat-form-field style="width: 400px;margin: 10px;">
+                <input matInput placeholder="Please put in a host" formControlName="host">
+              </mat-form-field>
+            </div>
+            <div>
+              <label>Exchange type</label>
+              <mat-form-field style="width: 400px;margin: 10px;">
+                <input matInput placeholder="Please put in an exchange type" formControlName="exchangeType">
+              </mat-form-field>
+            </div>
+            <div>
+              <label>Routing Key</label>
+              <mat-form-field style="width: 400px;margin: 10px;">
+                <input matInput placeholder="Please put in a routing key" formControlName="routingKey">
+              </mat-form-field>
+            </div>
+          </form>
+        </div>
+
+
+        <button type="submit" mat-button>Submit</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

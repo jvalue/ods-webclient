@@ -1,0 +1,136 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Add a new Processor Chain
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <form style="padding: 20px;" [formGroup]="processorChainForm" (ngSubmit)="save()">
+      <h3>General</h3>
+      <div>
+        <mat-form-field style="width: 400px;margin: 10px;">
+          <input matInput placeholder="ProcessorChain ID" formControlName="id">
+        </mat-form-field>
+      </div>
+
+      <h3>Configure the Adapter</h3>
+      <form *ngIf="adapterSpecArray" [formGroup]="adapterFormGroup">
+
+        <div>
+          <div>
+            <label>Adapter</label>
+          </div>
+          <div>
+            <mat-form-field style="width: 400px;margin: 10px;">
+              <mat-select placeholder="Please select an adapter" (valueChange)="updateAdapterSettings($event)"
+                          formControlName="name">
+                <mat-option *ngFor="let adapter of adapterSpecArray" [value]="adapter.name">
+                  {{adapter.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="currentAdapter" formArrayName="arguments">
+            <div *ngFor="let argument of adapterConfigOptions; let i=index">
+              <div [formGroupName]="i">
+
+                <span style="width: 150px;display:inline-block;margin: 10px;">{{argument}}</span>
+                <mat-form-field style="width: 400px;margin: 10px;">
+                  <input matInput placeholder="Value" formControlName="{{argument}}"/>
+                </mat-form-field>
+
+                <span *ngIf="currentAdapter.argumentTypes[argument] + ''
+                             == 'java.lang.String'">Please enter a String</span>
+                <span *ngIf="currentAdapter.argumentTypes[argument] + ''
+                             == 'java.util.ArrayList'">Please enter json as value for ArrayLists</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </form>
+
+      <h3>Additional Filters</h3>
+      <form *ngIf="filterSpecArray" [formGroup]="filterFormGroup">
+
+        <div formArrayName="filters">
+          <div *ngFor="let processor of filterFormArray.controls; let i=index">
+
+            <div [formGroupName]="i">
+              <span style="width: 200px;margin: 10px;">Filter {{i + 1}}</span>
+              <mat-form-field style="width: 400px;margin: 10px;">
+                <mat-select placeholder="Please select a filter" (valueChange)="updateFilterArguments($event, i)"
+                            formControlName="name">
+                  <mat-option *ngFor="let filter of filterSpecArray" [value]="filter.name">
+                    {{filter.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <button mat-raised-button type="button" color="warn" (click)="removeFilter(i)">Delete</button>
+
+              <div *ngIf="currentFilterArray[i]" formArrayName="arguments">
+                <!--filter has no arguments if filterConfigOptionsArray[i].length = 0-->
+                <div *ngIf="filterConfigOptionsArray[i]?.length > 0">
+                  <div *ngFor="let argument of filterConfigOptionsArray[i]; let k=index">
+                    <div [formGroupName]="k">
+
+                    <span style="width: 150px;display:inline-block;margin: 10px;">{{argument}}</span>
+                    <mat-form-field style="width: 400px;margin: 10px;">
+                      <input matInput placeholder="Value" formControlName="{{argument}}"/>
+                    </mat-form-field>
+
+                    <span *ngIf="currentFilterArray[i].argumentTypes[argument] + '' == 'java.lang.String'">Please enter a String</span>
+                    <span *ngIf="currentFilterArray[i].argumentTypes[argument] + '' == 'java.util.ArrayList'">Please enter json as value for ArrayLists</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </form>
+
+      <div>
+        <button mat-raised-button type="button" color="primary" (click)="addFilter()">
+          Add filter+
+        </button>
+      </div>
+
+      <div>
+        <div style="margin: 10px 0;">
+          <mat-checkbox [checked]="exIntervalBool" (change)="exIntervalBool = !exIntervalBool">Add ExecutionInterval
+          </mat-checkbox>
+        </div>
+        <div *ngIf="exIntervalBool">
+          <div>
+            <form [formGroup]="executionIntervalForm">
+              <mat-form-field style="width: 400px;margin: 10px;">
+                <input type="number" matInput placeholder="Please put in a value between 1 and 60"
+                       formControlName="period">
+              </mat-form-field>
+              <div *ngIf="executionIntervalForm.invalid">
+                <span color="warn">Value not between 1 and 60</span>
+              </div>
+              <mat-form-field style="width: 400px;margin: 10px;">
+                <mat-select placeholder="Please select a TimeUnit" formControlName="unit">
+                  <mat-option *ngFor="let unit of timeUnits" [value]="unit">
+                    {{unit}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!processorChainForm.valid">Submit</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

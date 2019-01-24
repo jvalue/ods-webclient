@@ -1,0 +1,82 @@
+<mat-horizontal-stepper linear #stepper>
+
+  <ng-template matStepperIcon="edit"></ng-template>
+
+  <mat-step>
+    <ng-template matStepLabel>Put in the MetaData</ng-template>
+
+    <form [formGroup]="metaDataForm" (ngSubmit)="submitMetaData()">
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="id" formControlName="id" required>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="domainIdKey" formControlName="domainIdKey">
+        </mat-form-field>
+      </div>
+
+      <div formGroupName="metaData">
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="name" formControlName="name">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="title" formControlName="title">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="author" formControlName="author">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="authorEmail" formControlName="authorEmail">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="notes" formControlName="notes">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="url" formControlName="url">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="termsOfUse" formControlName="termsOfUse">
+          </mat-form-field>
+        </div>
+      </div>
+      <button type="submit" mat-button matStepperNext [disabled]="!metaDataForm.valid">Next</button>
+    </form>
+
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Put in the Schema</ng-template>
+
+    <form [formGroup]="schemaForm" (ngSubmit)="submitDataSource()">
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="schema" formControlName="schema">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <button type="submit" mat-button [disabled]="!schemaForm.valid">Submit & Finish</button>
+        <button mat-button matStepperPrevious>Back</button>
+      </div>
+    </form>
+
+  </mat-step>
+</mat-horizontal-stepper>
+
+
+

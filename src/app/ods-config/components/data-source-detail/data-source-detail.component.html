@@ -1,0 +1,177 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      DataSource Details
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <div>
+      <mat-accordion>
+        <!--MetaData Panel-->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Metadata
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>
+            Id: {{(dataSource | async)?.id}}
+          </p>
+          <p>
+            DomainKeyId: {{(dataSource | async)?.domainIdKey}}
+          </p>
+          <p>
+            Title: {{(dataSource | async)?.metaData.title}}
+          </p>
+          <p>
+            Name: {{(dataSource | async)?.metaData.name}}
+          </p>
+          <p>
+            Author: {{(dataSource | async)?.metaData.author}}
+          </p>
+          <p>
+            Author Email: {{(dataSource | async)?.metaData.authorEmail}}
+          </p>
+          <p>
+            Notes: {{(dataSource | async)?.metaData.notes}}
+          </p>
+          <p>
+            Url: {{(dataSource | async)?.metaData.url}}
+          </p>
+          <p>
+            TermsOfUse: {{(dataSource | async)?.metaData.termsOfUse}}
+          </p>
+        </mat-expansion-panel>
+
+        <!--Schema Panel-->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Schema
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-card>
+        <pre>
+        {{(((dataSource | async)?.schema) | json)}}
+        </pre>
+          </mat-card>
+        </mat-expansion-panel>
+
+        <!--ProcessorChains Panel-->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              ProcessorChains
+            </mat-panel-title>
+            <mat-panel-description>
+              <button mat-button
+                      [routerLink]="['/odsConfig/datasources', (dataSource |async)?.id, 'newProcessorChain']">
+                <mat-icon>add</mat-icon> ProcessorChain
+              </button>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <table>
+            <th>ID</th>
+            <tr *ngFor="let chain of processorChains | async">
+              <td>{{chain.id}}</td>
+              <td>
+                <button mat-button (click)="showChain = true; processorChain = chain">show Details</button>
+              </td>
+              <td>
+                <button mat-button (click)="deleteProcessorChain(chain.id)">Delete</button>
+              </td>
+            </tr>
+          </table>
+          <mat-card *ngIf="showChain">
+            <button mat-button (click)="showChain = false">Hide</button>
+            <pre>
+          {{processorChain.processors | json}}
+        </pre>
+          </mat-card>
+        </mat-expansion-panel>
+
+        <!--DataView Panel-->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              DataViews
+            </mat-panel-title>
+            <mat-panel-description>
+              <button mat-button
+                      [routerLink]="['/odsConfig/datasources', (dataSource |async)?.id, 'newDataView']">
+                <mat-icon>add</mat-icon> DataView
+              </button>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <table>
+            <th>ID</th>
+            <tr *ngFor="let view of views | async">
+              <td>{{view.id}}</td>
+              <td>
+                <button mat-button (click)="showView = true; dataView = view">show Details</button>
+              </td>
+              <td>
+                <button mat-button (click)="deleteDataView(view.id)">Delete</button>
+              </td>
+            </tr>
+          </table>
+          <mat-card *ngIf="showView">
+            <button mat-button (click)="showView = false">Hide</button>
+            <p>Map-Function</p>
+            <pre>
+          {{dataView.mapFunction | json}}
+        </pre>
+            <p ng-if="!dataView.reduceFunction.isEmpty()">Reduce-Function</p>
+            <pre>
+          {{dataView.reduceFunction | json}}
+        </pre>
+          </mat-card>
+        </mat-expansion-panel>
+
+        <!--Notifications Panel-->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Notifications
+            </mat-panel-title>
+            <mat-panel-description>
+              <button mat-button
+                      [routerLink]="['/odsConfig/datasources', (dataSource |async)?.id, 'newNotificationClient']">
+                <mat-icon>add</mat-icon> NotificationClient
+              </button>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <table>
+            <th>ID</th>
+            <th>Type</th>
+            <tr *ngFor="let client of notificationClients | async">
+              <td>{{client.id}}</td>
+              <td>{{client.type}}</td>
+              <td>
+                <button mat-button (click)="deleteNotificationClient(client.id)">Delete</button>
+              </td>
+            </tr>
+          </table>
+        </mat-expansion-panel>
+
+        <!--Plugins Panel-->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Plugins
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <table>
+            <th>ID</th>
+            <tr *ngFor="let plugin  of plugins | async">
+              <td>{{plugin.id}}</td>
+            </tr>
+          </table>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
