@@ -1,0 +1,39 @@
+{
+  "name": "ods-webclient",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jvalue/ods-webclient",
+  "repository": "https://github.com/jvalue/ods-webclient.git",
+  "licenses": [
+    {
+      "type": "GNU Affero General Public License 3",
+      "url": "https://opensource.org/licenses/AGPL-3.0"
+    }
+  ],
+  "scripts": {
+    "build": "parcel build ./src/index.html",
+    "clean": "rm -rf .cache && rm -rf dist",
+    "prestart": "npm run clean",
+    "prebuild": "npm run clean",
+    "start": "parcel ./src/index.html"
+  },
+  "keywords": [
+    "vue",
+    "parcel",
+    "typescript"
+  ],
+  "author": "Devon Bellizio",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^2.5.22",
+    "vue-class-component": "^6.3.0",
+    "vue-hot-reload-api": "^2.3.0",
+    "vue-property-decorator": "^7.3.0"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^2.1.0",
+    "node-sass": "^4.9.0",
+    "parcel-bundler": "^1.9.4",
+    "typescript": "^2.9.1",
+    "vue-template-compiler": "^2.5.16"
+  }
+}
