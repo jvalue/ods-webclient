@@ -1,6 +1,6 @@
 {
   "name": "ods-webclient",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "homepage": "https://github.com/jvalue/ods-webclient",
   "repository": "https://github.com/jvalue/ods-webclient.git",
   "licenses": [
@@ -10,30 +10,21 @@
     }
   ],
   "scripts": {
-    "build": "parcel build ./src/index.html",
-    "clean": "rm -rf .cache && rm -rf dist",
-    "prestart": "npm run clean",
-    "prebuild": "npm run clean",
-    "start": "parcel ./src/index.html"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
-  "keywords": [
-    "vue",
-    "parcel",
-    "typescript"
-  ],
-  "author": "Devon Bellizio",
-  "license": "MIT",
   "dependencies": {
     "vue": "^2.5.22",
     "vue-class-component": "^6.3.0",
-    "vue-hot-reload-api": "^2.3.0",
-    "vue-property-decorator": "^7.3.0"
+    "vue-router": "^3.0.1",
+    "vuetify": "^1.4.3"
   },
   "devDependencies": {
-    "@vue/component-compiler-utils": "^2.1.0",
-    "node-sass": "^4.9.0",
-    "parcel-bundler": "^1.9.4",
-    "typescript": "^2.9.1",
-    "vue-template-compiler": "^2.5.16"
+    "@vue/cli-plugin-babel": "^3.3.0",
+    "@vue/cli-plugin-typescript": "^3.3.0",
+    "@vue/cli-service": "^3.3.0",
+    "typescript": "^3.0.0",
+    "vue-template-compiler": "^2.5.21"
   }
 }
