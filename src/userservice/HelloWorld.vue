@@ -96,16 +96,7 @@ import Component from 'vue-class-component';
     msg: String,
   },
 })
-export default class extends Vue {
-
-}
-/*
-export default Vue.extend({
-  name: 'HelloWorld',
-  props: {
-    msg: String,
-  ,
-});*/
+export default class extends Vue {}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
