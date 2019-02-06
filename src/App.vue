@@ -1,9 +1,13 @@
 
 
 <template>
-  <div id="app">
-    <v-app>
-      <v-navigation-drawer app v-model="drawer">
+  <div i;d="app">
+    <v-app;>
+      <v-navigation-drawer clipped app v-model="drawer">
+        <v-toolbar dense dark color="primary">
+        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <v-toolbar-title>{{title}}</v-toolbar-title>
+      </v-toolbar>
         <v-list>
           <v-list-tile v-for="item in items" :key="item.title" :to="item.route">
             <v-list-tile-content>
@@ -15,7 +19,7 @@
 
       <v-toolbar dense dark color="primary">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <v-toolbar-title>Open-Data-Service</v-toolbar-title>
+        <v-toolbar-title>{{title}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
           <v-btn flat to="/">Login</v-btn>
@@ -35,6 +39,7 @@
 export default {
   data() {
     return {
+      title: "Open-Data-Service",
       drawer: null,
       items: [
         { title: "Dashboard", route: "/" },
