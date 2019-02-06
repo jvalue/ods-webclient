@@ -1,19 +1,16 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <h1>Welcome to Open-Data-Service UI</h1>
+    <h2>Version: {{version}}</h2>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import HelloWorld from '@/userservice/HelloWorld.vue'; // @ is an alias to /src
 
-@Component({
-  name: 'home',
-  components: {
-    HelloWorld,
-  },
-})
-export default class extends Vue {}
+@Component
+export default class Home extends Vue {
+  public version: string = '0.1.0';
+}
 </script>
