@@ -21,6 +21,7 @@
     "vuetify": "^1.4.3"
   },
   "devDependencies": {
+    "@mdi/font": "^3.4.93",
     "@vue/cli-plugin-babel": "^3.3.0",
     "@vue/cli-plugin-typescript": "^3.3.0",
     "@vue/cli-service": "^3.3.0",
