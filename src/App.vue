@@ -1,13 +1,11 @@
-
-
 <template>
   <div id="app">
     <v-app>
       <v-navigation-drawer clipped app v-model="drawer">
         <v-toolbar dense dark color="primary">
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <v-toolbar-title>{{title}}</v-toolbar-title>
-      </v-toolbar>
+          <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+          <v-toolbar-title>{{title}}</v-toolbar-title>
+        </v-toolbar>
         <v-list>
           <v-list-tile v-for="item in items" :key="item.title" :to="item.route">
             <v-list-tile-content>
@@ -35,25 +33,24 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      title: "Open-Data-Service",
-      drawer: null,
-      items: [
-        { title: "Dashboard", route: "/" },
-        { title: "User", route: "/user" },
-        { title: "About", route: "/about" }
-      ]
-    };
-  }
-};
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'vue-class-component';
+@Component
+export default class App extends Vue {
+  public title: string = 'Open-Data-Service';
+  public drawer = null;
+  public items = [
+    { title: 'Dashboard', route: '/' },
+    { title: 'User', route: '/user' },
+    { title: 'About', route: '/about' },
+  ];
+}
 </script>
 
 <style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
