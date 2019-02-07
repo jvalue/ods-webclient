@@ -1,8 +1,8 @@
 
 
 <template>
-  <div i;d="app">
-    <v-app;>
+  <div id="app">
+    <v-app>
       <v-navigation-drawer clipped app v-model="drawer">
         <v-toolbar dense dark color="primary">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
