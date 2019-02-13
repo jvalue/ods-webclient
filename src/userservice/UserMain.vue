@@ -19,16 +19,15 @@ export default class UserMain extends Vue {
   public version: string = '2.0.0';
   public users: User[] = [];
 
-  constructor() {
-    super();
+  private mounted() {
     this.getUsers();
   }
 
-  public getUsers = () => {
+  private getUsers = () => {
     UserRestService.getAllUsers().then(r => {
       this.users.push(...r);
     });
-  };
+  }
 }
 </script>
 
