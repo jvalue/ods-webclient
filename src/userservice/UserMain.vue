@@ -2,7 +2,9 @@
   <div class="user-main">
     <h1>User-Service Configuration</h1>
     <h2>Backend version: {{version}}</h2>
-    <p>users: {{users}}</p>
+    <ul>
+      <li v-for="user in users" :key="user.id">{{user}}</li>
+    </ul>
   </div>
 </template>
 
@@ -15,7 +17,18 @@ import User from './user';
 @Component
 export default class UserMain extends Vue {
   public version: string = '2.0.0';
-  public users: User[] = UserRestService.getAllUsers();
+  public users: User[] = [];
+
+  constructor() {
+    super();
+    this.getUsers();
+  }
+
+  public getUsers = () => {
+    UserRestService.getAllUsers().then(r => {
+      this.users.push(...r);
+    });
+  };
 }
 </script>
 

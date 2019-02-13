@@ -1,13 +1,19 @@
 import User from './user';
-import * as BasicRestService from '@/shared/basicRest';
 
-const USER_URL = '/users';
+const USER_URL = 'http://localhost:8080/users';
+const USERNAME = 'admin@adminland.de';
+const PW = 'admin';
 
-export function getAllUsers(): User[] {
-  let users: User[] = [];
-  BasicRestService.get(USER_URL).then(responseData => {
-    //add all entries to user[]
+export function getAllUsers(): Promise<User[]> {
+  return fetch(USER_URL, {
+    mode: 'cors',
+    headers: {
+      Authorization: 'Basic ' + btoa(USERNAME + ':' + PW),
+    },
+  }).then(response => {
+    if (!response.ok) {
+      console.log('HTTP call failed: ' + response.status);
+    }
+    return response.json();
   });
-
-  return users;
 }
