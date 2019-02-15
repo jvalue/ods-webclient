@@ -37,13 +37,12 @@
                     />
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-overflow-btn
-                      v-model="editedRole"
-                      height="36"
-                      :items="roles"
-                      auto-select-first
-                      label="role"
-                    />
+                    <v-select
+                      :items="availableRoles"
+                      :rules="[required]"
+                      v-model="editedUser.role"
+                      label="Roles"
+                    ></v-select>
                   </v-flex>
                 </v-layout>
 
@@ -109,7 +108,7 @@ export default class UserMain extends Vue {
     password: '',
   };
   public editedIndex = -1;
-  public roles: string[] = ['admin', 'public'];
+  public availableRoles: string[] = [];
   public search = '';
   public rules = [this.required];
   public showPw = false;
@@ -127,32 +126,9 @@ export default class UserMain extends Vue {
     return pattern.test(mail) || 'invalid e-mail.';
   }
 
-  get editedRole(): string {
-    if (this.editedUser.role === 'ROLE_PUBLIC') {
-      return 'public';
-    } else if (this.editedUser.role === 'ROLE_ADMIN') {
-      return 'admin';
-    } else {
-      return 'none';
-    }
-  }
-
-  set editedRole(role) {
-    if (role === 'public') {
-      this.editedUser.role = 'ROLE_PUBLIC';
-    } else if (role === 'admin') {
-      this.editedUser.role = 'ROLE_ADMIN';
-    } else {
-      throw Error('Something went terribly wrong!');
-    }
-  }
-
   private mounted() {
-    this.getUsers();
-  }
-
-  private getUsers() {
-    UserRestService.getAllUsers().then(r => this.pushUsers(r));
+    UserRestService.getAllUsers().then(u => this.pushUsers(u));
+    UserRestService.getAllRoles().then(r => this.setRoles(r));
   }
 
   private updateUserRole(user: User) {
@@ -185,6 +161,10 @@ export default class UserMain extends Vue {
 
   private addUser(user: User) {
     UserRestService.addUser(this.editedUser).then(r => this.pushUsers([r]));
+  }
+
+  private setRoles(roles: string[]) {
+    this.availableRoles = roles;
   }
 
   private close() {

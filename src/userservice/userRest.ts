@@ -49,3 +49,14 @@ export function deleteUserById(id: string): Promise<number> {
     return response.status;
   });
 }
+export function getAllRoles(): Promise<string[]> {
+  return fetch(USER_URL + '/roles', {
+    mode: 'cors',
+    headers,
+  }).then(response => {
+    if (!response.ok) {
+      console.log('GET call failed: ' + response.status + response.statusText);
+    }
+    return response.json();
+  });
+}
