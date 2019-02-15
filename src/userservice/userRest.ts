@@ -15,7 +15,7 @@ export function getAllUsers(): Promise<User[]> {
     headers,
   }).then(response => {
     if (!response.ok) {
-      console.log('Get call failed: ' + response.status + response.statusText);
+      console.log('GET call failed: ' + response.status + response.statusText);
     }
     return response.json();
   });
@@ -31,7 +31,6 @@ export function addUser(user: EditableUser): Promise<User> {
     body: JSON.stringify(user),
   }).then(response => {
     if (!response.ok) {
-      console.log(JSON.stringify(response));
       response.json().then(r => console.log(r));
       console.log('POST failed ' + response.status);
     }
