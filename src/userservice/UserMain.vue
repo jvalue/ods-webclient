@@ -16,16 +16,34 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedUser.name" label="name"/>
+                    <v-text-field v-model="editedUser.name" :rules="[required]" label="name"/>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedUser.email" label="email"/>
+                    <v-text-field
+                      v-model="editedUser.email"
+                      :rules="[required,validMailAdress]"
+                      label="email"
+                    />
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedUser.password" label="password"/>
+                    <v-text-field
+                      v-model="editedUser.password"
+                      :rules="[required, pwLength]"
+                      :append-icon="showPw ? 'mdi mdi-eye-off':'mdi mdi-eye'"
+                      label="password"
+                      :type="showPw ? 'text': 'password'"
+                      counter
+                      @click:append="showPw = !showPw"
+                    />
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-overflow-btn v-model="editedRole" height="36" :items="roles" label="role"/>
+                    <v-overflow-btn
+                      v-model="editedRole"
+                      height="36"
+                      :items="roles"
+                      auto-select-first
+                      label="role"
+                    />
                   </v-flex>
                 </v-layout>
 
@@ -94,6 +112,21 @@ export default class UserMain extends Vue {
   public editedIndex = -1;
   public roles: string[] = ['admin', 'public'];
   public search = '';
+  public rules = [this.required];
+  public showPw = false;
+
+  private required(val: string) {
+    return !!val || 'required.';
+  }
+
+  private pwLength(pw: string) {
+    return pw.length >= 4 || 'min 4 characters.';
+  }
+
+  private validMailAdress(mail: string) {
+    const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return pattern.test(mail) || 'invalid e-mail.';
+  }
 
   get editedRole(): string {
     if (this.editedUser.role === 'ROLE_PUBLIC') {
