@@ -93,7 +93,6 @@ export default class UserMain extends Vue {
 
   private availableRoles: string[] = [];
   private search = '';
-  private rules = [this.required];
   private showPw = false;
 
   private required(val: string) {
