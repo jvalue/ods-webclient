@@ -10,48 +10,35 @@
           </v-btn>
           <v-card>
             <v-card-title>
-              <span class="headline">Add User</span>
+              <span class="headline">Create New User</span>
             </v-card-title>
             <v-card-text>
-              <v-container grid-list-md>
-                <v-layout wrap>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedUser.name" :rules="[required]" label="name"/>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field
-                      v-model="editedUser.email"
-                      :rules="[required,validMailAdress]"
-                      label="email"
-                    />
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field
-                      v-model="editedUser.password"
-                      :rules="[required, pwLength]"
-                      :append-icon="showPw ? 'mdi mdi-eye-off':'mdi mdi-eye'"
-                      label="password"
-                      :type="showPw ? 'text': 'password'"
-                      counter
-                      @click:append="showPw = !showPw"
-                    />
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-select
-                      :items="availableRoles"
-                      :rules="[required]"
-                      v-model="editedUser.role"
-                      label="Roles"
-                    ></v-select>
-                  </v-flex>
-                </v-layout>
+              <v-form ref="form" v-model="valid">
+                <v-text-field v-model="dialogUser.name" label="Name" required></v-text-field>
+                <v-text-field
+                  v-model="dialogUser.email"
+                  label="E-mail"
+                  :rules="[required,validMailAdress]"
+                ></v-text-field>
+                <v-text-field
+                  v-model="dialogUser.password"
+                  label="Password"
+                  :rules="[required, pwLength]"
+                  :append-icon="showPw ? 'mdi mdi-eye-off':'mdi mdi-eye'"
+                  :type="showPw ? 'text': 'password'"
+                  counter
+                  @click:append="showPw = !showPw"
+                ></v-text-field>
+                <v-select
+                  v-model="dialogUser.role"
+                  :items="availableRoles"
+                  label="Role"
+                  :rules="[v => !!v || 'Role is required']"
+                ></v-select>
 
-                <v-card-actions>
-                  <v-spacer/>
-                  <v-btn color="error" flat @click="close">Cancel</v-btn>
-                  <v-btn color="primary" flat @click="save">Save</v-btn>
-                </v-card-actions>
-              </v-container>
+                <v-btn color="error" flat @click="close">Cancel</v-btn>
+                <v-btn :disabled="!valid" color="primary" flat @click="save">Save</v-btn>
+              </v-form>
             </v-card-text>
           </v-card>
         </v-dialog>
@@ -95,19 +82,14 @@ export default class UserMain extends Vue {
     { text: 'role', value: 'role' },
   ];
   public dialog = false;
-  public editedUser: User = {
+  public valid: boolean = false;
+  public dialogUser: User = {
     name: '',
     email: '',
     role: '',
     password: '',
   };
-  public defaultUser: User = {
-    name: '',
-    email: '',
-    role: '',
-    password: '',
-  };
-  public editedIndex = -1;
+
   public availableRoles: string[] = [];
   public search = '';
   public rules = [this.required];
@@ -127,18 +109,17 @@ export default class UserMain extends Vue {
   }
 
   private mounted() {
-    UserRestService.getAllUsers().then(u => this.pushUsers(u));
-    UserRestService.getAllRoles().then(r => this.setRoles(r));
+    this.loadUsers();
+    this.loadRoles();
   }
 
-  private updateUserRole(user: User) {
-    if (user.role === 'ROLE_PUBLIC') {
-      user.role = 'public';
-    } else if (user.role === 'ROLE_ADMIN') {
-      user.role = 'admin';
-    } else {
-      throw Error('User with id ' + user.id + ' has an invalid role!');
-    }
+  private loadUsers() {
+    console.log('loadUsers');
+    UserRestService.getAllUsers().then(u => (this.users = u));
+  }
+
+  private loadRoles() {
+    UserRestService.getAllRoles().then(r => (this.availableRoles = r));
   }
 
   private deleteUser(deletedUser: User) {
@@ -150,44 +131,26 @@ export default class UserMain extends Vue {
     );
   }
 
-  private editUser(user: User) {
-    this.editedIndex = this.users.indexOf(user);
-  }
-
-  private pushUsers(updated: User[]): void {
-    updated.forEach(user => this.updateUserRole(user));
-    this.users.push(...updated);
-  }
-
   private addUser(user: User) {
-    UserRestService.addUser(this.editedUser).then(r => this.pushUsers([r]));
-  }
-
-  private setRoles(roles: string[]) {
-    this.availableRoles = roles;
+    UserRestService.addUser(user).then(() => this.loadUsers());
   }
 
   private close() {
     this.dialog = false;
     setTimeout(() => {
-      this.editedUser = Object.assign({}, this.defaultUser);
-      this.editedIndex = -1;
+      this.resetForm();
     }, 300);
   }
 
   private save() {
-    if (this.editedIndex === -1) {
-      this.addUser(this.editedUser);
-    } else {
-      const id: string = this.users[this.editedIndex].id || '-1';
-      UserRestService.deleteUserById(id).then(r => {
-        if (r === 200 || r === 201) {
-          this.addUser(this.editedUser);
-        }
-      });
-    }
+    this.addUser(this.dialogUser);
     this.dialog = false;
   }
+
+  private resetForm() {
+    (this.$refs.form as HTMLFormElement).reset();
+  }
+
 }
 </script>
 
