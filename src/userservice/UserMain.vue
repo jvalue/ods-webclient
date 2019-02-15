@@ -74,26 +74,26 @@ import User from './user';
 
 @Component
 export default class UserMain extends Vue {
-  public version: string = '2.0.0';
-  public users: User[] = [];
-  public headers = [
+  private version: string = '2.0.0';
+  private users: User[] = [];
+  private headers = [
     { text: 'name', value: 'name' },
     { text: 'email', value: 'email' },
     { text: 'role', value: 'role' },
   ];
-  public dialog = false;
-  public valid: boolean = false;
-  public dialogUser: User = {
+  private dialog = false;
+  private valid: boolean = false;
+  private dialogUser: User = {
     name: '',
     email: '',
     role: '',
     password: '',
   };
 
-  public availableRoles: string[] = [];
-  public search = '';
-  public rules = [this.required];
-  public showPw = false;
+  private availableRoles: string[] = [];
+  private search = '';
+  private rules = [this.required];
+  private showPw = false;
 
   private required(val: string) {
     return !!val || 'required.';
