@@ -85,7 +85,6 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import * as UserRestService from './userRest';
 import User from './user';
-import EditableUser from './editableUser';
 
 @Component
 export default class UserMain extends Vue {
@@ -97,13 +96,13 @@ export default class UserMain extends Vue {
     { text: 'role', value: 'role' },
   ];
   public dialog = false;
-  public editedUser: EditableUser = {
+  public editedUser: User = {
     name: '',
     email: '',
     role: '',
     password: '',
   };
-  public defaultUser: EditableUser = {
+  public defaultUser: User = {
     name: '',
     email: '',
     role: '',
@@ -167,7 +166,7 @@ export default class UserMain extends Vue {
   }
 
   private deleteUser(deletedUser: User) {
-    UserRestService.deleteUserById(deletedUser.id).then(
+    UserRestService.deleteUserById(deletedUser.id || 'unknown').then(
       r =>
         (this.users = this.users.filter(
           existingUser => existingUser.id !== deletedUser.id,
@@ -184,7 +183,7 @@ export default class UserMain extends Vue {
     this.users.push(...updated);
   }
 
-  private addUser(user: EditableUser) {
+  private addUser(user: User) {
     UserRestService.addUser(this.editedUser).then(r => this.pushUsers([r]));
   }
 
@@ -200,7 +199,7 @@ export default class UserMain extends Vue {
     if (this.editedIndex === -1) {
       this.addUser(this.editedUser);
     } else {
-      const id: string = this.users[this.editedIndex].id;
+      const id: string = this.users[this.editedIndex].id || '-1';
       UserRestService.deleteUserById(id).then(r => {
         if (r === 200 || r === 201) {
           this.addUser(this.editedUser);

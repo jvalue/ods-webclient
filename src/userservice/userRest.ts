@@ -1,5 +1,4 @@
 import User from './user';
-import EditableUser from './editableUser';
 
 const USER_URL = 'http://localhost:8080/users';
 const USERNAME = 'admin@adminland.de';
@@ -21,7 +20,7 @@ export function getAllUsers(): Promise<User[]> {
   });
 }
 
-export function addUser(user: EditableUser): Promise<User> {
+export function addUser(user: User): Promise<User> {
   const postHeaders = new Headers(headers);
   postHeaders.append('Content-Type', 'application/json');
   return fetch(USER_URL, {
