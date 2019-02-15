@@ -74,7 +74,7 @@ import User from './user';
 
 @Component
 export default class UserMain extends Vue {
-  private version: string = '2.0.0';
+  public version: string = '2.0.0';
   private users: User[] = [];
   private headers = [
     { text: 'name', value: 'name' },
