@@ -19,7 +19,7 @@
                   v-model="dialogUser.email"
                   label="E-mail"
                   type="email"
-                  :rules="[required]"
+                  :rules="[required, validMailAddress]"
                 ></v-text-field>
                 <v-text-field
                   v-model="dialogUser.password"
@@ -103,7 +103,7 @@ export default class UserMain extends Vue {
     return pw.length >= 4 || 'min 4 characters.';
   }
 
-  private validMailAdress(mail: string) {
+  private validMailAddress(mail: string) {
     // tslint:disable-next-line: max-line-length
     const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return pattern.test(mail) || 'invalid e-mail.';
@@ -151,7 +151,6 @@ export default class UserMain extends Vue {
   private resetForm() {
     (this.$refs.form as HTMLFormElement).reset();
   }
-
 }
 </script>
 
