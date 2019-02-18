@@ -70,13 +70,23 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import { State, Action } from 'vuex-class';
 import * as UserRestService from './userRest';
 import User from './user';
+
+const namespace = { namespace: 'user' };
 
 @Component
 export default class UserMain extends Vue {
   public version: string = '2.0.0';
-  private users: User[] = [];
+
+  @State('users', namespace) private users!: User[];
+
+  @Action('loadUsers', namespace ) private loadUsersAction!: any;
+  @Action('createUser', namespace ) private createUserAction!: any;
+  @Action('deleteUser', namespace ) private deleteUserAction!: any;
+
+  // private users: User[] = [];
   private headers = [
     { text: 'name', value: 'name' },
     { text: 'email', value: 'email' },
@@ -110,30 +120,17 @@ export default class UserMain extends Vue {
   }
 
   private mounted() {
-    this.loadUsers();
+    // this.loadUsers();
     this.loadRoles();
-  }
-
-  private loadUsers() {
-    console.log('loadUsers');
-    UserRestService.getAllUsers().then(u => (this.users = u));
+    this.loadUsersAction();
   }
 
   private loadRoles() {
     UserRestService.getAllRoles().then(r => (this.availableRoles = r));
   }
 
-  private deleteUser(deletedUser: User) {
-    UserRestService.deleteUserById(deletedUser.id || 'unknown').then(
-      r =>
-        (this.users = this.users.filter(
-          existingUser => existingUser.id !== deletedUser.id,
-        )),
-    );
-  }
-
-  private addUser(user: User) {
-    UserRestService.addUser(user).then(() => this.loadUsers());
+  private deleteUser(user: User) {
+    this.deleteUserAction(user.id);
   }
 
   private close() {
@@ -144,7 +141,7 @@ export default class UserMain extends Vue {
   }
 
   private save() {
-    this.addUser(this.dialogUser);
+    this.createUserAction(this.dialogUser);
     this.dialog = false;
   }
 
