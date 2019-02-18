@@ -4,10 +4,15 @@
     <h2>Backend version: {{version}}</h2>
     <v-card>
       <v-card-title>
+        <v-tooltip right>
+          <template #activator="data">
+            <v-btn slot="activator" v-on="data.on" @click="dialog = true" dark fab top left color="success">
+              <i style="font-size: 2em" class="mdi mdi-account-plus"/>
+            </v-btn>
+          </template>
+          <span>Create new user</span>
+        </v-tooltip>
         <v-dialog v-model="dialog" max-width="500px">
-          <v-btn slot="activator" dark fab top left color="success">
-            <i style="font-size: 2em" class="mdi mdi-account-plus"/>
-          </v-btn>
           <v-card>
             <v-card-title>
               <span class="headline">Create New User</span>
