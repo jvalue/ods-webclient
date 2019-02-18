@@ -5,6 +5,6 @@ export default [
     path: '/user',
     name: 'user',
     component: UserMain,
-    title: 'User',
+    meta: { title: 'Userservice'},
   },
 ];

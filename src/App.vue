@@ -19,6 +19,8 @@
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <v-toolbar-title>{{title}}</v-toolbar-title>
         <v-spacer></v-spacer>
+        <v-toolbar-title>{{routerTitle}}</v-toolbar-title>
+        <v-spacer></v-spacer>
         <v-toolbar-items>
           <v-btn flat to="/">Login</v-btn>
         </v-toolbar-items>
@@ -36,15 +38,26 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import Router from './router';
+
 @Component
 export default class App extends Vue {
-  public title: string = 'Open-Data-Service';
-  public drawer = null;
-  public items = [
+  private title: string = 'Open-Data-Service';
+  private routerTitle: string = '';
+  private drawer = null;
+  private items = [
     { title: 'Dashboard', route: '/' },
     { title: 'User', route: '/user' },
     { title: 'About', route: '/about' },
   ];
+
+  private created() {
+    this.routerTitle = Router.currentRoute.meta.title || '';
+
+    Router.afterEach((to, from) => {
+      this.routerTitle = to.meta.title || '';
+    });
+  }
 }
 </script>
 
