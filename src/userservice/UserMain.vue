@@ -53,7 +53,14 @@
         />
       </v-card-title>
 
-      <v-data-table :headers="headers" :items="users" :search="search" class="elevation-1">
+      <v-data-table
+        :headers="headers"
+        :items="users"
+        :search="search"
+        :loading="isLoadingUsers"
+        class="elevation-1"
+      >
+        <v-progress-linear slot="progress" indeterminate></v-progress-linear>
         <template slot="items" slot-scope="props">
           <td class="text-xs-left">{{ props.item.name}}</td>
           <td class="text-xs-left">{{props.item.email}}</td>
@@ -81,6 +88,7 @@ export default class UserMain extends Vue {
   public version: string = '2.0.0';
 
   @State('users', namespace) private users!: User[];
+  @State('isLoadingUsers', namespace) private isLoadingUsers!: boolean;
   @State('roles', namespace) private availableRoles!: string[];
 
   @Action('loadUsers', namespace)
@@ -96,9 +104,10 @@ export default class UserMain extends Vue {
   private loadRolesAction!: () => void;
 
   private headers = [
-    { text: 'name', value: 'name' },
-    { text: 'email', value: 'email' },
-    { text: 'role', value: 'role' },
+    { text: 'Name', value: 'name' },
+    { text: 'Email', value: 'email' },
+    { text: 'Role', value: 'role' },
+    { text: 'Action', value: '' },
   ];
   private dialog = false;
   private valid: boolean = false;

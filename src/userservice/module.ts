@@ -5,14 +5,21 @@ import * as UserRestService from './userRest';
 @Module({ namespaced: true })
 export default class UserModule extends VuexModule {
   private users: User[] = [];
+  private isLoadingUsers: boolean = true;
   private roles: string[] = [];
 
   @Mutation public setUsers(users: User[]) {
     this.users = users;
+    this.isLoadingUsers = false;
+  }
+
+  @Mutation public setIsLoadingUsers(value: boolean) {
+    this.isLoadingUsers = value;
   }
 
   @Action({ commit: 'setUsers' })
   public async loadUsers() {
+    this.context.commit('setIsLoadingUsers', true);
     return await UserRestService.getAllUsers();
   }
 
