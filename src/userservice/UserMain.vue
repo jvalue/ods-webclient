@@ -83,14 +83,17 @@ export default class UserMain extends Vue {
   @State('users', namespace) private users!: User[];
   @State('roles', namespace) private availableRoles!: string[];
 
-  @Action('loadUsers', namespace) private loadUsersAction!: () => void;
-  @Action('createUser', namespace) private createUserAction!: (
-    user: User,
-  ) => void;
-  @Action('deleteUser', namespace) private deleteUserAction!: (
-    userID: string,
-  ) => void;
-  @Action('loadRoles', namespace) private loadRolesAction!: () => void;
+  @Action('loadUsers', namespace)
+  private loadUsersAction!: () => void;
+
+  @Action('createUser', namespace)
+  private createUserAction!: (user: User) => void;
+
+  @Action('deleteUser', namespace)
+  private deleteUserAction!: (userID: string) => void;
+
+  @Action('loadRoles', namespace)
+  private loadRolesAction!: () => void;
 
   private headers = [
     { text: 'name', value: 'name' },
