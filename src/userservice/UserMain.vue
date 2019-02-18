@@ -82,11 +82,10 @@ export default class UserMain extends Vue {
 
   @State('users', namespace) private users!: User[];
 
-  @Action('loadUsers', namespace ) private loadUsersAction!: any;
-  @Action('createUser', namespace ) private createUserAction!: any;
-  @Action('deleteUser', namespace ) private deleteUserAction!: any;
+  @Action('loadUsers', namespace ) private loadUsersAction!: () => void;
+  @Action('createUser', namespace ) private createUserAction!: (user: User) => void;
+  @Action('deleteUser', namespace ) private deleteUserAction!: (userID: string) => void;
 
-  // private users: User[] = [];
   private headers = [
     { text: 'name', value: 'name' },
     { text: 'email', value: 'email' },
@@ -120,7 +119,6 @@ export default class UserMain extends Vue {
   }
 
   private mounted() {
-    // this.loadUsers();
     this.loadRoles();
     this.loadUsersAction();
   }
@@ -130,7 +128,7 @@ export default class UserMain extends Vue {
   }
 
   private deleteUser(user: User) {
-    this.deleteUserAction(user.id);
+    this.deleteUserAction(user.id || 'unknown');
   }
 
   private close() {
