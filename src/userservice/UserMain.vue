@@ -81,10 +81,16 @@ export default class UserMain extends Vue {
   public version: string = '2.0.0';
 
   @State('users', namespace) private users!: User[];
+  @State('roles', namespace) private availableRoles!: string[];
 
-  @Action('loadUsers', namespace ) private loadUsersAction!: () => void;
-  @Action('createUser', namespace ) private createUserAction!: (user: User) => void;
-  @Action('deleteUser', namespace ) private deleteUserAction!: (userID: string) => void;
+  @Action('loadUsers', namespace) private loadUsersAction!: () => void;
+  @Action('createUser', namespace) private createUserAction!: (
+    user: User,
+  ) => void;
+  @Action('deleteUser', namespace) private deleteUserAction!: (
+    userID: string,
+  ) => void;
+  @Action('loadRoles', namespace) private loadRolesAction!: () => void;
 
   private headers = [
     { text: 'name', value: 'name' },
@@ -100,7 +106,6 @@ export default class UserMain extends Vue {
     password: '',
   };
 
-  private availableRoles: string[] = [];
   private search = '';
   private showPw = false;
 
@@ -119,12 +124,8 @@ export default class UserMain extends Vue {
   }
 
   private mounted() {
-    this.loadRoles();
+    this.loadRolesAction();
     this.loadUsersAction();
-  }
-
-  private loadRoles() {
-    UserRestService.getAllRoles().then(r => (this.availableRoles = r));
   }
 
   private deleteUser(user: User) {
@@ -148,4 +149,3 @@ export default class UserMain extends Vue {
   }
 }
 </script>
-
