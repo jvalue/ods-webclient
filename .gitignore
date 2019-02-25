@@ -40,3 +40,6 @@ Thumbs.db
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
+
+# Yarn
+yarn.lock
