@@ -6,6 +6,7 @@ import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
 import UserModule from './userservice/module';
+import TransformationModule from '@/transformation/module';
 
 Vue.use(Vuetify, {
   iconfont: 'mdi',
@@ -18,6 +19,7 @@ Vue.config.productionTip = false;
 export const store = new Vuex.Store({
   modules: {
     user: UserModule,
+    transformation: TransformationModule,
   },
 });
 
