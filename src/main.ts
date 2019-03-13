@@ -7,6 +7,7 @@ import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
 import UserModule from './userservice/module';
 import TransformationModule from '@/transformation/module';
+import { keycloakInit } from '@/keycloak';
 
 Vue.use(Vuetify, {
   iconfont: 'mdi',
@@ -22,6 +23,8 @@ export const store = new Vuex.Store({
     transformation: TransformationModule,
   },
 });
+
+keycloakInit();
 
 new Vue({
   router,
