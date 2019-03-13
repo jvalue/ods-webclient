@@ -1,8 +1,14 @@
-import Keycloak, { KeycloakInitOptions, KeycloakInstance } from 'keycloak-js';
+import Keycloak, {
+  KeycloakInitOptions,
+  KeycloakInstance,
+  KeycloakPromise,
+  KeycloakProfile,
+} from 'keycloak-js';
 
 // =================================================================================================
 
 let keycloak: KeycloakInstance | undefined;
+let userProfile: KeycloakProfile | undefined;
 
 // =================================================================================================
 
@@ -26,7 +32,10 @@ export function keycloakInit(
         });
     }
 
-    keycloakAuth.onAuthSuccess = () => console.log('onAuthSuccess', arguments);
+    keycloakAuth.onAuthSuccess = () => {
+      console.log('onAuthSuccess', arguments);
+      loadKeycloakUserProfile();
+    };
     keycloakAuth.onAuthError = () => console.log('onAuthError', arguments);
     keycloakAuth.onAuthLogout = () => console.log('onAuthLogout', arguments);
     keycloakAuth.onAuthRefreshSuccess = () =>
@@ -84,4 +93,20 @@ export function isAuthenticated(): boolean {
   }
 
   return keycloak.authenticated;
+}
+
+export function getUserProfile(): KeycloakProfile | undefined {
+  return userProfile;
+}
+
+function loadKeycloakUserProfile() {
+  keycloak!.loadUserProfile()
+    .success((profile) => {
+      console.log('loaded user profile');
+      userProfile = profile;
+    })
+    .error(() => {
+      console.error('Failed to load user profile');
+      userProfile = undefined;
+    });
 }
