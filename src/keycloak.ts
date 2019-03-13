@@ -18,7 +18,7 @@ export function keycloakInit(
       keycloakAuth
         .init(options)
         .success(authenticated => {
-          console.error('Keycloak initialization successful:', authenticated);
+          console.log('Keycloak initialization successful:', authenticated);
           resolve(keycloakAuth);
         })
         .error((errorData: any) => {
@@ -37,6 +37,27 @@ export function keycloakInit(
       init();
     };
     init();
+  });
+}
+
+export function keycloakLogin(): Promise<boolean> {
+  return new Promise<boolean>((resolve, reject) => {
+    if (keycloak) {
+      const keycloakAuth = keycloak;
+      keycloakAuth
+        .login()
+        .success(() => {
+          console.log('login successful');
+          resolve(true);
+        })
+        .error(() => {
+          console.error('login failed');
+          reject(false);
+        });
+    } else {
+      console.error('keycloak undefined');
+      reject(false);
+    }
   });
 }
 
