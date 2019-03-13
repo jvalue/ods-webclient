@@ -8,7 +8,6 @@ let keycloak: KeycloakInstance | undefined;
 
 export function keycloakInit(
   options = {
-    onLoad: 'login-required',
     checkLoginIframe: false,
   } as KeycloakInitOptions,
 ): Promise<KeycloakInstance> {
@@ -77,4 +76,12 @@ export function useBearer(): Promise<string> {
       reject('Not logged in');
     }
   });
+}
+
+export function isAuthenticated(): boolean {
+  if (keycloak === undefined || keycloak!.authenticated === undefined) {
+    return false;
+  }
+
+  return keycloak.authenticated;
 }
