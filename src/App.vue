@@ -21,11 +21,10 @@
         <v-spacer></v-spacer>
         <v-toolbar-title>{{routerTitle}}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-toolbar-items>
-          <v-btn flat to="/">Login</v-btn>
-        </v-toolbar-items>
+         
+        <login/>
+      
       </v-toolbar>
-
       <v-content>
         <v-container fluid>
           <router-view></router-view>
@@ -38,9 +37,14 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import Router from './router';
+import Login from '@/components/Login.vue';
+import Router from '@/router';
 
-@Component
+@Component({
+  components: {
+    login: Login,
+  },
+})
 export default class App extends Vue {
   private title: string = 'Open-Data-Service';
   private routerTitle: string = '';
@@ -58,7 +62,9 @@ export default class App extends Vue {
     Router.afterEach((to, from) => {
       this.routerTitle = to.meta.title || '';
     });
+
   }
+
 }
 </script>
 
