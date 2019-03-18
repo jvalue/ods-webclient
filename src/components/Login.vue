@@ -7,7 +7,7 @@
     
     <v-menu  v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-x>
       <template v-slot:activator="{ on }">
-        <v-btn v-show="isAuth" v-on="on" flat to="/">Andi
+        <v-btn v-show="isAuth" v-on="on" flat to="/">{{userProfile.firstName}}
           <v-icon dark right>mdi-chevron-down</v-icon>
         </v-btn>
       </template>
@@ -15,8 +15,8 @@
       <v-list>
         <v-list-tile avatar>
           <v-list-tile-content>
-            <v-list-tile-title>Andi Bauer</v-list-tile-title>
-            <v-list-tile-sub-title>andi@internet.de</v-list-tile-sub-title>
+            <v-list-tile-title>{{userProfile.firstName}} {{userProfile.lastName}}</v-list-tile-title>
+            <v-list-tile-sub-title>{{userProfile.email}}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -39,13 +39,36 @@ import Component from 'vue-class-component';
 import { Action, State } from 'vuex-class';
 import { KeycloakProfile } from 'keycloak-js';
 
+const namespace = { namespace: 'auth' };
+
 @Component
 export default class Login extends Vue {
-  private isAuth: boolean = false;
   private menu: boolean = false;
 
+  @State('isAuth', namespace) private isAuth!: boolean;
+  @State('userProfile', namespace) private userProfile!: KeycloakProfile;
+
+  @Action('login', namespace)
+  private login!: () => void;
+
+  @Action('logout', namespace)
+  private logout!: () => void;
+
+  @Action('initKeycloak', namespace)
+  private initKeycloak!: () => void;
+
+  private mounted() {
+
+    console.log('mounted');
+    this.initKeycloak();
+  }
+
+  private onLogin() {
+    this.login();
+  }
+
   private onLogout() {
-    this.isAuth = false;
+    this.logout();
     this.menu = false;
   }
 
