@@ -1,14 +1,11 @@
 import Keycloak, {
   KeycloakInitOptions,
   KeycloakInstance,
-  KeycloakPromise,
-  KeycloakProfile,
 } from 'keycloak-js';
 
 // =================================================================================================
 
 let keycloak: KeycloakInstance | undefined;
-let userProfile: KeycloakProfile | undefined;
 
 // =================================================================================================
 
@@ -95,18 +92,7 @@ export function isAuthenticated(): boolean {
   return keycloak.authenticated;
 }
 
-export function getUserProfile(): KeycloakProfile | undefined {
-  return userProfile;
+export function loadKeycloakUserProfile(): Keycloak.KeycloakPromise<Keycloak.KeycloakProfile, void> {
+  return keycloak!.loadUserProfile();
 }
 
-function loadKeycloakUserProfile() {
-  keycloak!.loadUserProfile()
-    .success((profile) => {
-      console.log('loaded user profile');
-      userProfile = profile;
-    })
-    .error(() => {
-      console.error('Failed to load user profile');
-      userProfile = undefined;
-    });
-}
