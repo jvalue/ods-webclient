@@ -5,9 +5,9 @@ import router from './router';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
-import UserModule from './userservice/module';
+import UserModule from '@/userservice/module';
 import TransformationModule from '@/transformation/module';
-import { keycloakInit } from '@/keycloak';
+import AuthModule from '@/components/auth/module';
 
 Vue.use(Vuetify, {
   iconfont: 'mdi',
@@ -19,15 +19,15 @@ Vue.config.productionTip = false;
 
 export const store = new Vuex.Store({
   modules: {
+    auth: AuthModule,
     user: UserModule,
     transformation: TransformationModule,
   },
 });
-
-keycloakInit();
 
 new Vue({
   router,
   store,
   render: h => h(App),
 }).$mount('#app');
+
