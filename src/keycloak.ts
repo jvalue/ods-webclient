@@ -8,6 +8,7 @@ let keycloak: KeycloakInstance | undefined;
 
 export function keycloakInit(
   options = {
+    onLoad: 'check-sso',
     checkLoginIframe: false,
   } as KeycloakInitOptions,
 ): Promise<KeycloakInstance> {

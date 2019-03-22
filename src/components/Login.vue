@@ -77,7 +77,6 @@ export default class Login extends Vue {
 
   private onEditProfile() {
     this.editProfile();
-    this.menu = false;
   }
 }
 </script>

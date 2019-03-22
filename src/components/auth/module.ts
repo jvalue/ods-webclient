@@ -43,7 +43,7 @@ export default class AuthModule extends VuexModule {
 
   @Action
   public async editProfile() {
-    return await keycloakEditProfile();
+    await keycloakEditProfile();
   }
 
   @Action({ commit: 'setUserProfile' })
@@ -59,7 +59,8 @@ export default class AuthModule extends VuexModule {
     });
   }
 
-  @Mutation private setAuth(value: boolean) {
+  @Mutation
+  private setAuth(value: boolean) {
     this.isAuth = value;
   }
 
