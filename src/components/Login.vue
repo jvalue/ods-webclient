@@ -1,13 +1,14 @@
 <template>
   <v-toolbar-items>
-    
-    <v-btn v-show="!isAuth" flat @click="onLogin">Login
+    <v-btn v-show="!isAuth" flat @click="onLogin">
+      Login
       <v-icon dark right>mdi-account</v-icon>
     </v-btn>
-    
-    <v-menu  v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-x>
+
+    <v-menu v-model="menu" :close-on-content-click="false" :nudge-width="200" offset-x>
       <template v-slot:activator="{ on }">
-        <v-btn v-show="isAuth" v-on="on" flat to="/">{{userProfile.firstName}}
+        <v-btn v-show="isAuth" v-on="on" flat to="/">
+          {{userProfile.firstName}}
           <v-icon dark right>mdi-chevron-down</v-icon>
         </v-btn>
       </template>
@@ -57,8 +58,10 @@ export default class Login extends Vue {
   @Action('initKeycloak', namespace)
   private initKeycloak!: () => void;
 
-  private mounted() {
+  @Action('editProfile', namespace)
+  private editProfile!: () => void;
 
+  private mounted() {
     console.log('mounted');
     this.initKeycloak();
   }
@@ -73,7 +76,7 @@ export default class Login extends Vue {
   }
 
   private onEditProfile() {
-    alert('on edit profile not implemented yet');
+    this.editProfile();
     this.menu = false;
   }
 }
