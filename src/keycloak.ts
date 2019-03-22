@@ -1,7 +1,4 @@
-import Keycloak, {
-  KeycloakInitOptions,
-  KeycloakInstance,
-} from 'keycloak-js';
+import Keycloak, { KeycloakInitOptions, KeycloakInstance } from 'keycloak-js';
 
 // =================================================================================================
 
@@ -11,6 +8,7 @@ let keycloak: KeycloakInstance | undefined;
 
 export function keycloakInit(
   options = {
+    onLoad: 'check-sso',
     checkLoginIframe: false,
   } as KeycloakInitOptions,
 ): Promise<KeycloakInstance> {
@@ -60,7 +58,28 @@ export function keycloakLogin(): Promise<boolean> {
           reject(false);
         });
     } else {
-      console.error('keycloak undefined');
+      console.error('login failed: keycloak undefined');
+      reject(false);
+    }
+  });
+}
+
+export function keycloakEditProfile(): Promise<boolean> {
+  return new Promise<boolean>((resolve, reject) => {
+    if (keycloak) {
+      const keycloakAuth = keycloak;
+      keycloakAuth
+        .accountManagement()
+        .success(() => {
+          console.log('edit profile successful');
+          resolve(true);
+        })
+        .error(() => {
+          console.error('edit profile failed');
+          reject(false);
+        });
+    } else {
+      console.error('edit profile failed: keycloak undefined');
       reject(false);
     }
   });
@@ -92,7 +111,9 @@ export function isAuthenticated(): boolean {
   return keycloak.authenticated;
 }
 
-export function loadKeycloakUserProfile(): Keycloak.KeycloakPromise<Keycloak.KeycloakProfile, void> {
+export function loadKeycloakUserProfile(): Keycloak.KeycloakPromise<
+  Keycloak.KeycloakProfile,
+  void
+> {
   return keycloak!.loadUserProfile();
 }
-

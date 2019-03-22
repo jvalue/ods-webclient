@@ -4,6 +4,7 @@ import {
   loadKeycloakUserProfile,
   isAuthenticated,
   keycloakInit,
+  keycloakEditProfile,
 } from '@/keycloak';
 import { KeycloakProfile } from 'keycloak-js';
 
@@ -40,6 +41,11 @@ export default class AuthModule extends VuexModule {
     return false;
   }
 
+  @Action
+  public async editProfile() {
+    await keycloakEditProfile();
+  }
+
   @Action({ commit: 'setUserProfile' })
   public async loadUserProfile() {
     return new Promise((resolve, reject) => {
@@ -53,7 +59,8 @@ export default class AuthModule extends VuexModule {
     });
   }
 
-  @Mutation private setAuth(value: boolean) {
+  @Mutation
+  private setAuth(value: boolean) {
     this.isAuth = value;
   }
 
